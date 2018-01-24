@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+      <head>
+          <meta charset="utf-8" />
+         <meta name="viewport" content="width=device-width, initial-scale=1" />
+         <title>PrPoint</title>
+         <link rel="stylesheet" href="static/my.css"  />
+         
+         <link rel="stylesheet" href="static/themes/c.min.css" />
+         <link rel="stylesheet" href="static/themes/jquery.mobile.icons.min.css" />
+         
+        <link rel="stylesheet" href="static/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.css" />
+        <script src="static/jquery/1.10.2/jquery-1.10.2.min.js">   </script>
+        <script src="static/jquery.mobile-1.4.0/jquery.mobile-1.4.0.min.js">   </script>
+        <script src="static/uni.js">  </script>
+        
+     <style>
+		/*change header color*/
+		h1 { 
+		     background-color:#5EBBE8;
+			 color:#fff;
+			 
+			  }
+		h2 { 
+		    color:#0067CE
+		}
+		h2.mc-text-danger {
+			color:red;
+		}
+		/* centre-aligned text*/
+		.mc-text-centre {
+			text-align:center;
+			
+		}
+		/*.ui-input-search{display:none;}*/	
+			
+		#check { color:#409FFF;
+			}
+		/*.ui-content{ background-color:#484848}*/
+		.custom-size-flipswitch.ui-flipswitch .ui-btn.ui-flipswitch-on {
+			text-indent: -5.9em;
+		}
+		.custom-size-flipswitch.ui-flipswitch .ui-flipswitch-off {
+			text-indent: 0.5em;
+		}
+		/* Custom widths are needed because the length of custom labels differs from
+		   the length of the standard labels */
+		.custom-size-flipswitch.ui-flipswitch {
+			width: 8.875em;
+		}
+		.custom-size-flipswitch.ui-flipswitch.ui-flipswitch-active {
+			padding-left: 7em;
+			width: 1.875em;
+		}
+		@media (min-width: 28em) {
+	/* // Repeated from rule .ui-flipswitch above*/
+	    .ui-field-contain > label + .custom-size-flipswitch.ui-flipswitch {
+			width: 1.875em;
+			}
+			}
+		input[type=number],input[type=text]{
+		/* [disabled]background-color: #D3F1F8; */
+		    border-radius: 0.3125em;
+		}
+		
+		.full-width-slider input {
+		    display: none;
+		
+		}
+		.full-width-slider .ui-slider-track {
+		    margin-left: 15px;
+		
+		}
+		#loginButton {
+			background-color:#5EBBE8;
+		/* #loginButton {background-color:#008000;*/
+		
+			color:#fff;
+		}
+		#memButton {
+			background-color:#5EBBE8;
+			color:#fff;
+		}
+		
+		#orderBtn {
+			background-color:#5EBBE8;
+			color:#fff;
+		}
+		#cm_id {
+		    color:#000;
+		
+		}
+		#saveButton{
+			background-color:#5EBBE8;
+			color:#fff;
+		}
+		#password {
+		    color:#000;
+		}
+		#outletButton {
+			background-color:#5EBBE8;
+			color:#fff;
+		}
+		
+		
+		#rewardButton {
+			background-color:#5EBBE8;
+			color:#fff;
+		}
+		
+		.footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height:50px;
+			background-color:#5EBBE8;
+			color: white;
+			text-align: center;
+		}
+		.required {  /* Marker for required fields */
+		    color: red;
+		}
+		
+		.errorMsg {  /* for error messages */
+		    color: red;
+		}
+		
+		.errorChk {  /* for error messages */
+		    color: red;
+		}
+		#errorChk {  /* for error messages */
+		    color: red;
+		}
+		#mobError{
+			color: red;
+		}
+		.mem {
+			width: 500px;
+			margin: 25px auto;
+		} 
+		
+		form {
+			padding: 20px;
+			/*background:#f4fdff;*/
+			color: #fff;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			
+		} 
+		
+		/* Faisal*/
+		.auto_break{
+			word-wrap:break-word!important;
+			white-space:normal!important;
+		}
+		#img_div {
+			width: 100%;
+			height:110px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			text-align: center;
+			margin-bottom:15px;
+		}
+		
+		#img_name {	
+			padding: 7px;
+			text-align:center;
+		}
+		
+		a{text-decoration:none;}
+			
+		/* Faisal*/
+		
+		  
+	</style>
+        
+    <script>
+
+   $(document).ready(function(){ 
+  			//alert (localStorage.last_sync_date)
+			
+			$("#login_image").hide();
+			
+			$("#outletShow").html(localStorage.outletShow)
+			$("#giftShow").html(localStorage.giftShow)
+			
+			//$("#prdctShow").html(localStorage.prdctShow)
+			//$("#item_combo_id").empty()
+			//$("#item_combo_id").append(localStorage.prdctShow); 
+<!------------------------------------------------------------------------->			
+			
+			var item_combo_id_ob=$('#item_combo_id');				
+			item_combo_id_ob.empty()
+			item_combo_id_ob.append(localStorage.prdctShow);
+			
+			var item_combo_id_ob_S=$('#item_combo_id_S');
+			item_combo_id_ob_S.empty()
+			item_combo_id_ob_S.append(localStorage.prdctShowList);
+			
+			<!--------------- Product stock-18/1217------------>
+						
+			var item_combo_id_ob_stock=$('#item_combo_id_stock');
+			item_combo_id_ob_stock.empty()
+			item_combo_id_ob_stock.append(localStorage.prdctShowStock);
+			
+	
+	       <!--------------- Product stock-18/1217------------>
+				
+			
+			<!---------------Add to Cart ------------>
+						
+			var item_combo_id_ob_cart=$('#item_combo_id_cart');
+			item_combo_id_ob_cart.empty()
+			item_combo_id_ob_cart.append(localStorage.prdctAddCartShow);
+			
+	
+	       <!--------------- Add to Cart ------------>
+		   
+<!------------------------------------------------------------------------->
+
+
+		   
+			<!-------------------------- Product ----------------->	
+						
+			/*$("#item_Que_combo_id").empty()
+		    $("#item_Que_combo_id").append(localStorage.prdctShowCart);*/
+			<!-------------------------- Product ----------------->
+			$("#selectedItem").empty()
+			$("#selectedItem").append(localStorage.selectedProductShow);
+			
+			//-------- Product Stock
+			
+			$("#stock_Que_combo_id").empty()
+		    $("#stock_Que_combo_id").append(localStorage.prdctStockCart);
+			
+			//-------- Product Stock
+			
+			
+			//-------- Add Cart Product
+			
+			$("#add_cart_Que_combo_id").empty()
+		    $("#add_cart_Que_combo_id").append(localStorage.prdctAddCart);
+			
+			//-------- Add Cart Product
+				
+			//-------- Add Cart Product			
+			$('#addCartprodctPage').html(localStorage.outlet)
+			//-------- Add Cart Product
+			
+			//---------------			
+		    $('#otltName').html(localStorage.outlet);
+			$('#outletSrch').html(localStorage.outlet);
+			//----------------
+			
+			//-------- Product Stock
+			
+			$('#stockOutletName').html(localStorage.outlet);
+			$('#prodctStockQList').html(localStorage.outlet)
+			//-------- Product Stock
+						
+			$('#purchOutlet').html(localStorage.outlet);
+			$('#prodctPage').html(localStorage.outlet)
+			$('#prodctQList').html(localStorage.outlet)
+			
+			
+			$("#prMem").html(localStorage.memInfo);
+			$("#prPoint").html(localStorage.memPoint);
+			$("#prMSave").html(localStorage.memInfo);
+	        $("#prSPoint").html(localStorage.memPoint);
+			$("#prRedPoint").html(localStorage.memPoint);
+			
+			
+			$("#giftRedShow").html(localStorage.giftShowRed)
+	
+			$("#prRedMem").html(localStorage.memRedMob);
+		    $("#prRedMemName").html(localStorage.memRedName);
+			
+			//alert (localStorage.catList)
+			var rpt_rep_ob1=$("#catgoryList");
+			rpt_rep_ob1.empty();	 
+			rpt_rep_ob1.append(localStorage.catList);
+			
+			var rpt_rep_ob1=$("#catgoryListShow_S");
+			rpt_rep_ob1.empty();	 
+			rpt_rep_ob1.append(localStorage.catList);
+			//-------- Product Stock
+			var rpt_rep_ob1=$("#catgoryList_stock");
+			rpt_rep_ob1.empty();	 
+			rpt_rep_ob1.append(localStorage.catList);
+			//-------- Product Stock
+			
+
+			//-------- Add Cart Product
+			var rpt_rep_ob1=$("#catListAddCart");
+			rpt_rep_ob1.empty();	 
+			rpt_rep_ob1.append(localStorage.catList);
+			//-------- Add Cart Product			
+			
+			
+			
+			
+			$("#queMem").html(localStorage.queMem);
+			$("#purchaseShow").html(localStorage.pFinal);
+			$("#purchaseFinalShow").html(localStorage.pStrFinal);
+			
+//			
+//			<!--------------- 03/01/18 -------------->
+			var currentDate = new Date()
+			var day = currentDate.getDate();if(parseInt(day)<10)	{day="0" + day};
+			var month = currentDate.getMonth() + 1;if(parseInt(month)<10){month="0" +month};
+			var year = currentDate.getFullYear()
+			var today=  year + "-" + month + "-" + day
+
+//			<!-------------- 03/01/18 ---------------->
+			//localStorage.last_sync_date='2018-01-06'
+			//alert(today)
+			//alert(localStorage.last_sync_date)
+			
+			if ((localStorage.sync=='Yes')&(localStorage.last_sync_date==today)){
+
+				homePage();
+			}
+			else{
+				
+				
+				url="#login";					
+				$.mobile.navigate(url);
+				
+			}
+//
+//<!--------------------------------------03/01/18-------------------------->
+			//if (localStorage.sync=='Yes'){
+//				homePage();
+//			}
+//				
+//			else{
+//				
+//				
+//			}
+
+
+
+			//$("#catgoryList").val();
+			//alert (localStorage.prdctShow)
+			//var rpt_rep_ob1=$("#catgoryList");
+//			rpt_rep_ob1.empty();	 
+//			rpt_rep_ob1.append(catList);
+
+			
+			//resetForms(); 
+      	});
+		
+		
+   
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}		
+		
+    </script>
+     </head>
+<body>
+<!-------------------------------login------------------------------->
+
+ 
+<div data-role="page" id="login" data-theme="c">
+    
+  <div data-role="header" data-theme="c" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
+     <a style="height:18px"  href="#routePanel" ><img src="unilogo13.png"></a>
+     <a style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right " onClick="exit()" ><img src="exit.png"> </a>
+    
+       <h1 >LOGIN</h1>
+       
+  </div> <!--<div>--2-->
+  <div data-role="content">
+   <div class="errorMsg"></div> <!--<div>--4-->
+   <ul data-role="listview" data-inset="true" data-theme="c">
+            <li class="ui-field-contain">
+                <label for="mobile"> PCC ID:</label>
+                <input type="text"  name="cm_id" id="cm_id" placeholder="PCC ID" value=""  >
+            </li>
+            <li class="ui-field-contain">
+                <label for="password">PASSWORD: </label>
+                <input type="number" name="cm_pass" id="cm_pass" placeholder="PASSWORD" value="" >
+            </li>
+        </ul>
+                   
+    <!--<table width="500px" border="0">
+        <tr>
+            <td>PCC ID: </td>
+            <td width="150px"><input type="text"  name="cm_id" id="cm_id" placeholder="PCC ID" value=""  ></td>
+        </tr>
+        
+        
+        <tr>
+            <td>PASSWORD: </td>
+            <td><input type="number" name="cm_pass" id="cm_pass" placeholder="PASSWORD" value="" ></td>
+        </tr>
+    </table>
+-->	 <!--<div>--5-->              
+	</br>
+    <div id="login_error"  style="color:#900;"></div> <!--<div>--6-->
+    <div id="login_image" style="text-align:center;"><img height="40px" width="40px" src="loading.gif"></div> <!--<div>--7-->
+    <a id="loginButton" data-role="button"  onClick="login_user()" >Login</a>
+    </div> 
+       
+   </div>             
+ <!-- <div data-role="footer" ></div>    -->          
+
+</div> <!--<div>--1-->
+
+<!---------------------------------------Page Outlet------------------------------------->
+
+<div data-theme="c" data-role="page" id="pageOutlet" style="background-color:#EBFCFA" >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
+    <a data-role="button" style="height:18px"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="login_page()"  ><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
+    <h3>Outlet</h3>
+    </div> 
+        <div class="main">
+        <br><br>
+        <div id="outletShow" align="left" style="width:90%"></div>
+        </div> <!--<div>--3-->
+</div> <!--<div>--1-->
+
+<!---------------------------------Home page------------------------------------->
+
+<div data-theme="c" data-role="page" id="menuPage" style="background-color:#FFF; overflow:scroll"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
+    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="pageOutlet()" ><img src="menu.png"></a>
+    <h3>Gift List</h3>
+    </div> 
+    
+    <div data-role="content">
+    	<table width="100%" border="0">
+             <tr>
+             	<td ><font id="otltName" style="font-size:13px; color:#060"></font></td>	
+             </tr>
+              <tr>
+                <td style="color:#0060BF;">Reward Currently available</td>
+              </tr>
+            </table>
+    		<br>
+          <div id="giftShow" ></div>
+          
+      <br>
+    <table width="100%" border="0">
+        <tr>
+            <!--<td width="50%" ><a  data-role="button" id="sTripBtn" onClick="shppingTrip()"  style="height:30px; font-size:20px; ">New Shopping Trip</a></td>-->
+            <td><a href="" onClick="shppingTrip()"><div id="img_div"><img src="cat_img/add_users.png" style="padding-top:10px;"><p style="margin:0px; padding:0px;">New Shopping Trip</p></div></a></td>
+            <td><a href="" onClick="productQueRedeem()"><div id="img_div"><img src="cat_img/shopping_cart_full.png" style="padding-top:10px;"><p style="margin:0px; padding:0px;">Que</p></div></a></td>
+            <!--<td><a data-role="button" id="queBtn" onClick="productQueRedeem()"  style="height:30px; font-size:20px">Que</a></td>-->
+        </tr>
+        <!--<tr>
+        	<td colspan="2" align="center"><a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"></div></a></td>
+        </tr>-->
+    </table>
+    
+	<br><br><br>
+    <!--<a data-role="button" id="pListBtn" onClick="productShowPage()" style="height:25px; font-size:16px">Product List</a>
+	<br>
+    <a data-role="button" id="pStockBtn" onClick="productStockPage()" style="height:25px; font-size:16px;">Product Stock</a>-->
+        
+     </div>
+
+</div> <!--<div>--1-->
+<!-----------------------Shopping Trip--------------------->
+
+<div data-theme="c" data-role="page" id="member" style="background-color:#EBFCFA"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; ">    
+    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()" ><img src="menu.png"></a>
+    <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <h3>Select Member</h3>
+    </div> 
+    
+        <div data-role="content" style="padding-bottom:0px;">
+        	<table width="100%" border="0">
+             <tr>
+             	<td ><font id="outletSrch" style="font-size:13px; color:#060">  </font></td>	
+             </tr>
+            </table>
+        </div> 
+        <div>   
+          <form action="" method="get">      
+            <label for="mobile" style="color:#000;">Member Mobile Number:</label>
+            
+            <input type="number" name="mMobile" id="mMobile" list="mobile" value="" placeholder="Mobile No" style="height:40px; font-size:40px;">
+        <br>
+        <a id="rewardButton" data-role="button"  onClick="memberSelect()" ><strong>Next</strong></a>
+        <div class="errorMsg"></div>
+        </form>
+        </div>
+
+</div> <!--<div>--1-->
+<!---------------------------------member reg------------->
+
+<div data-theme="c" data-role="page" id="registration" style="background-color:#EBFCFA; overflow:scroll"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
+    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"  ><img src="menu.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
+    <h3>Add Member</h3>
+    </div> <!--<div>--2-->
+    <br>
+     &nbsp;&nbsp;&nbsp;&nbsp;<font id="purchOutlet" style="font-size:14px; color:#060"></font>
+     
+     <div class="main" id="mem">
+     <form class="form" method="post" action="#" id="formTest" >
+      <!--<font style="color:#005E8A">-->
+        
+        <div data-role="fieldcontain">
+        <label for="name" style="color:#0060BF" >Full Name<span class="required">*</span></label>
+        <input type="text"   name="name" id="name"  value="" placeholder="Enter full name here."  style="color:#000;">
+        </div>
+        
+        <div data-role="fieldcontain">
+        <label for="mobile"  style="color:#0060BF">Mobile No<span class="required">*</span></label>       
+        <input type="text" name="mobile" id="mobile"  value=""  style="color:#000; " readonly>
+        </div>
+        
+        <div data-role="fieldcontain">     
+        <label for="area"  style="color:#0060BF">Area</label>       
+        <input type="text" name="area" id="area"  value="" placeholder="Enter location here."  style="color:#000; ">
+        </div>
+        
+        <div data-role="fieldcontain">         
+        <label for="genderComb" style="color:#0060BF" >Gender<span class="required">*</span></label>
+        <select id="genderComb" name="genderComb" data-native-menu="false">
+            <option value="" selected style="color:#000;" id="colorChange">Select Gender</option>
+            <option value="Male" style="color:#000;">Male</option>
+            <option value="Female" style="color:#000;">Female</option>
+        </select> 
+        </div>
+        
+        <div data-role="fieldcontain">    
+        <label for="ageRange" style="color:#0060BF" >Age Range<span class="required">*</span></label>
+        <select id="ageRange" name="ageRange" data-native-menu="false" >
+            <option value=""  selected style="color:#000;">Select Age</option>
+            <option value="10-20" style="color:#000;">10-20</option>
+            <option value="20-30" style="color:#000;">20-30</option>
+            <option value="30-40" style="color:#000;">30-40</option>
+            <option value="40-50" style="color:#000;">40-50</option>
+            <option value="50-60" style="color:#000;">50-60</option>
+            <option value="60-70" style="color:#000;">60-70</option>
+            <option value="70-80" style="color:#000;">70-80</option>
+            <option value="80-90" style="color:#000;">80-90</option>
+            <option value="90-100" style="color:#000;">90-100</option>
+        </select>
+        </div>
+        
+     <!--</font> -->
+     <div class="errorChk"></div><br>
+       <div >
+          <a id="memButton" data-role="button"  onClick="member_save()" ><strong>Submit</strong></a>	
+        </div> 
+   </form>
+
+    
+     </div> 
+     <br><br><br>
+     <!--<div>--3-->
+
+</div> <!--<div>--1-->
+
+<!----------------------------------product List Start----------->
+<!--style="background-color:#EBFCFA"
+style="background-color:#5EBBE8; color:#fff"-->
+<!--<div data-theme="c" data-role="page" id="ProductList" style="background-color:#FFF; overflow:scroll;">
+<div data-theme="c" data-role="header" data-position="fixed"> -->
+<div data-theme="c" data-role="page" id="ProductList" style="background-color:#FFF; overflow:scroll;">
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
+
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    
+    <h3>Product List</h3>
+</div>
+		<div data-role="content" >
+             <table width="100%" border="0">
+             <tr>
+             	<td colspan="3"><font id="prodctPage" style="font-size:13px; color:#060"></font></td>	
+             </tr>
+              <tr>
+                <td><font style="font-size:14px; color:#007D7D" id="prMem"></font></td>
+                <td><font style="font-size:16px; color:#800040;">Point</font></td>
+                <td><font style="font-size:16px; color:#800040" id="prPoint"></font></td>
+              </tr>
+            </table>
+            <br>
+            <a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"></div></a>
+            
+            <table width="100%"  style="cell-spacing:0px;" >
+                <tr>
+                	<td colspan="3"><font style="font-size:16px; color:#007D7D"><strong>Production Selection</strong></font></td>
+                </tr>
+              <tr>
+                <td ><a href="#" onClick="proCatSelect('FC')" data-transition="slide"><div id="img_div"><img src="cat_img/Face_F.jpg" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Face</p></div><!--<div id="img_name"><p>Face</p></div>--></a></td>
+                <td ><a href="#" onClick="proCatSelect('Deo')" data-transition="slide"><div id="img_div"><img src="cat_img/Deo.jpg" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Deo</p></div><!--<div id="img_name"><p>Deo</p></div>--></a></td>
+                <td ><a href="#" onClick="proCatSelect('Hair')" data-transition="slide"><div id="img_div"><img src="cat_img/Hair.jpg" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Hair</p></div><!--<div id="img_name"><p>Hair</p></div>--></a></td>
+              </tr>
+              <tr>
+                <td><a href="#" onClick="proCatSelect('HnB')" data-transition="slide"><div id="img_div"><img src="cat_img/HnB.jpg" style="padding-top:10px; height:60px;"><p style="padding:0px; margin:0px;">Hnb</p></div><!--<div id="img_name"><p>Hnb</p></div>--></a></td>
+                <td ><a href="#" onClick="proCatSelect('OC')" data-transition="slide"><div id="img_div"><img src="cat_img/OC.jpg" style="padding-top:10px;"><p style="padding:0px; margin:0px;">OC</p></div><!--<div id="img_name"><p>Oc</p></div>--></a></td>
+                <td><a href="#" onClick="proCatSelect('PW')" data-transition="slide"><div id="img_div"><img src="cat_img/PW1.jpg" style="padding-top:5px;"><p style="padding:0px; margin:0px;">PW</p></div><!--<div id="img_name"><p>Pw</p></div>--></a></td>
+              </tr>
+            </table>
+        
+		<div style="border-bottom:2px solid #CCC; border-top:1px solid #CCC; background-color:#EDFEED;">
+        	<font id="selectedItem"></font>
+         </div>     
+        <br>
+     <!--id="prdctShow"-->
+        <!--<div  style="overflow:scroll; height:600px;" >
+        	<ul class="list" id="item_combo_id" style="background-color:#EDFEED; padding:0px; margin:0px;"> </ul>
+        <br><br>
+        </div>-->
+        <br>
+        <!--<a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a>--> 
+        <a id="rewardButton" data-role="button"  onClick="purchaseDataSave()" ><strong>Add to Cart</strong></a>
+    </div> 
+      	<br><br><br><br><br><br><br><br>
+ </div> 
+ 
+ 
+ 
+<!--<div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
+<div data-theme="c" data-role="header" data-position="fixed" > -->
+
+<div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    
+    <h3>Product List</h3>
+</div>
+		<div data-role="content" >
+             <font id="prodctPage" style="font-size:13px; color:#060"></font>
+             
+             <!--<table width="100%" border="0">
+              <tr>
+                <td><font style="font-size:14px; color:#007D7D" id="prMem"></font></td>
+                <td><font style="font-size:16px; color:#800040">Point</font></td>
+                <td><font style="font-size:16px; color:#800040" id="prPoint"></font></td>
+              </tr>
+            </table>-->
+			<br>
+            
+        <div>
+        	<ul class="list" id="item_combo_id" style="background-color:#EDFEED; padding:0px; margin:0px;"> </ul>
+        </div>
+        <br><br>
+        <a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a> 
+    </div> 
+      	<br><br><br><br><br><br><br><br>
+          
+ </div>
+ 
+ 
+ 
+ <!----------------------------------product List End----------->
+
+
+<!----------------------------------product List Show----------->
+
+<div data-theme="c" data-role="page" id="ProductListShow" style="background-color:#EBFCFA">
+
+<div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
+       
+     <!--<a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+     
+      
+            <h3>Product List</h3>
+
+           
+  </div> 
+  
+         <font id="prodctPage_S" style="font-size:13px; color:#060"></font>
+         <br>
+        
+         <table width="600px" border="0">
+          <tr>
+          	<td width="30px">&nbsp; </td> 
+            
+            <td> 
+            <select name="catgoryListShow_S"  id="catgoryListShow_S" onChange="selcetCat_S()"  >
+                <option value=""  >Category</option>
+             </select></td>
+          </tr>
+        </table>
+     
+  <div id="prdctShow_S" style="overflow:scroll; height:600px; width:1000px; "  align="left" >
+         <ul class="list" id="item_combo_id_S" style="background-color:#EDFEED">
+        </ul>
+       <!-- <a id="memButton" data-role="button"  onClick="historyShow()" ><strong>History</strong></a>-->
+		<br><br><br><br>
+    </div>  <!--<div>--3--> 
+           <br><br><br><br><br><br><br><br>  
+      <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
+        <br><br>
+     </div> <!--<div>--4-->
+     <br>
+     
+ </div> <!--<div>--1-->
+ 
+<!------------------------------- Product List Show End -----------------------------> 
+
+<!----------------------------------Product Stock Show Start----------->
+
+<div data-theme="c" data-role="page" id="StockListShow" style="background-color:#EBFCFA;">
+
+
+ <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;" data-add-back-btn="true" > 
+       
+     <!--<a data-rel="back" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+     
+     <a id="backjpj" style="height:18px" data-role="button" data-iconpos="left" onClick="productStockQue()" class="ui-btn-right">Next</a>
+      
+     <h3>Product Stock</h3>
+ </div> <!--<div>--2-->
+ 
+   <label for="stockOutletName" style="color:#36C;"> </label>&nbsp;&nbsp; <font id="stockOutletName" style="font-size:12px; color:#060;">  </font>       
+ <!--<font id="stockOutletName" style="font-size:12px; color:#060;">
+ </font>--> <br>
+
+         <table width="600px" border="0">
+          <tr>
+          	<td width="30px">&nbsp;  </td>
+           
+            <td> 
+            <select name="catgoryList_stock"  id="catgoryList_stock" onChange="selcetCat_stock()"  >
+                <option value=""  >Category</option>
+             </select></td>
+          </tr>
+        </table>
+         
+
+  <div id="prdctStock"  style="overflow:scroll; height:600px; width:1000px; "  align="left" >
+  
+  <!--prdctStock-->
+         <ul class="list" id="item_combo_id_stock" style="background-color:#EDFEED;"></ul>
+         
+         <!--item_combo_id_stock-->
+      
+		<br><br><br><br>
+    </div>  <!--<div>--3--> 
+           <br><br><br><br><br><br><br><br>  
+      <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"  > 
+
+        <br><br>
+     </div> <!--<div>--4-->
+     <br>
+ </div> <!--<div>--1-->
+<!------------------------------- Product Stock Show End -----------------------------> 
+
+<!---------------------------------------- Product Stock Qty Submit Start------------------->
+
+ <div data-theme="c" data-role="page" id="ProductStockQueList" style="background-color:#EBFCFA;"  >
+       <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;" data-add-back-btn="true" > 
+       
+     	<!--<a data-rel="back" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+       
+        <h3>Stock Que List</h3>
+
+      </div> <!--<div>--2-->
+  
+        <font id="prodctStockQList" style="font-size:12px; color:#060;"></font>
+         
+         
+          
+ <!--<table width="100%" border="0">
+  <tr>
+    <td><font style="font-size:14px; color:#007D7D" id="prMSave"></font></td>
+    <td><font style="font-size:16px; color:#800040" id="prSPoint"></font></td>
+  </tr>
+</table>-->
+  <br> <br>
+  <div id="prdctStockQueShow" style="overflow:scroll; height:300px;">
+          <font id="stock_Que_combo_id"></font>
+  </div> <!--<div>--3-->  
+  <div class="errorChkStock"></div>  <!--<div>--4-->
+         <!--<div id="purchase_image" ><img height="40px" width="40px" src="loading.gif"></div>-->
+  <a data-role="button" id="stockBtn"   onClick="stockDataSave()" >Submit</a> 
+         
+         
+              
+      <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"  ></div> <!--<div>--5-->
+		
+     <br>
+ </div> <!--<div>--1-->
+
+<!----------------------------------------------Product Stock Qty Submit End -------------------> 
+
+<!----------------------------------------------Shopping Buscket Start------------------->
+
+ <div data-theme="c" data-role="page" id="ProductQueList" style="background-color:#EBFCFA;overflow: scroll" >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" > 
+    <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="menu.png"></a>
+    <!--<a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"><img src="back1.png"></a>-->
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+     <h3>Que List</h3>
+  </div> 
+  
+  <div data-role="content">
+  <font id="prodctQList" style="font-size:12px; color:#060"></font>
+       
+ <table width="100%" border="0">
+  <tr>
+    <td><font style="font-size:14px; color:#007D7D" id="prMSave"></font></td>
+    <td><font style="font-size:16px; color:#800040">Point</font></td>
+    <td><font style="font-size:16px; color:#800040" id="prSPoint"></font></td>
+  </tr>
+</table>
+<br>
+  <div id="prdctQueShow" style="overflow:scroll; height:300px;">
+      <font id="item_Que_combo_id"></font>
+  </div>
+  <br>      
+ <div class="errorChkpurchase"></div> 
+ <div id="purchase_image" ><img height="40px" width="40px" src="loading.gif"></div>
+ 
+ <a data-role="button" id="purchaseBtn"   onClick="purchaseDataSave()" >Proceed to Check Out</a> 
+ 
+<!-- <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  ></div>-->
+</div>
+ <br><br><br>
+ </div> 
+<!----------------------------------------------Shopping Buscket End ------------------->
+
+
+<!----------------------------------------------Shopping Que/ Redeem------------------->
+
+   <div data-theme="c" data-role="page" id="ProductQueRedList" style="background-color:#EBFCFA; overflow:scroll;"  >
+      <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
+     <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="menu.png"></a>
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+      <h3>Purchase / Redeem</h3>
+ 
+  </div>
+      <br> 
+  <div data-role="content">
+      <!--<div id="prdctQueRedShow" style="overflow:scroll">
+          <font id="item_Que_comboRed_id" style="overflow:scroll">-->
+     
+            Please select from Que
+               
+            <div id="queMem" ></div>
+    		<br>
+             <table width="100%" border="0">
+                  <tr>
+                        <td > <input type="number" name="redMobile" id="redMobile" list="mobile" placeholder="Member Mobile No" onKeyUp="checkRadio()" style="height:40px; font-size:24px;"></td>
+                        <td></td>
+                        <td width="50px"><a data-role="button" style=" height:25px; font-size:20px"   onClick="clearText()" >X</a> </td>
+                  </tr>
+            </table>
+    		<br>
+            <table width="100%" border="0">
+                <tr >
+                    <td > <a data-role="button"  id="PnCButton"   onClick="PurchaseDone()" >Purchase & CheckOut</a></td>
+                    <td></td>
+                    <td >  <a data-role="button"   onClick="Redeem()" >Redeem</a>   </td>
+                </tr>
+                <tr >
+                    <td colspan="3"><a data-role="button" id="addProduct" onClick="memberSelect()" >Add Product</a></td>
+                </tr>   
+            </table>
+         <!--</font>
+        </div>  -->
+        <div class="errorMsg"></div>  
+        <br><br>  
+      <!--<div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> -->
+	</div>
+     </div>
+ </div>
+
+
+
+<!----------------------------------------------Redeem------------------->
+
+     <div data-theme="c" data-role="page" id="RedeemList" style="background-color:#EBFCFA; overflow:scroll;"  >
+       <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
+     <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+     
+       <a id="backjpj" style="height:18px" data-role="button" data-iconpos="left" onClick="addCartproduct()" class="ui-btn-right">Add Product</a>
+            <h3>Purchase</h3>           
+ 	</div>
+
+	<div data-role="content">
+        <table width="100%" border="0">
+            <tr>
+                 <td style="color:#0060BF">  <font style="font-size:14px; color:#009D00" id="prRedMemP">  </font></td>
+                 <td style="color:#0060BF"> </td>
+            </tr>
+            <tr>
+                  <td style="color:#0060BF"><font style="font-size:16px; color:#009D00" id="prRedMemNameP">  </font> </td>
+                  <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A" >Point</font></td> 
+                  <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A" id="prRedPointP"></font></td>    
+            </tr>
+        </table> 
+     	<br>
+        <!--<div id="prdctQueRedListShow" style="overflow:scroll">
+          <font id="item_Que_comboList_id" >-->
+        
+        <div id="purchaseShow"></div>
+        <br>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td >&nbsp;&nbsp;<img src="camera.png" width="40" height="40" alt="TakePic" onClick="get_pic_HairCare()"></td>
+                    <td align="center" ><img  width="100" height="100" alt="" id="myImage" ;><input name="prPhoto" id="prPhoto" type="hidden" value="" ><input name="prPhotoName" id="prPhotoName" type="hidden" value=""  >
+                    </td>
+                </tr>
+            </table><br>
+                
+        <div id="pError"></div>
+        <a data-role="button"   onClick="ConfirmPage()" >Next</a>
+         <!--</font>        
+        </div>-->   
+    </div>            
+      <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
+
+     </div>
+ </div>
+<!---------------------------------- Redeem page End -------------------------->
+
+<!---------------------------------- Add to Cart product List Start1----------->
+
+<div data-theme="c" data-role="page" id="CartPList" style="background-color:#EBFCFA">
+
+    <div data-role="panel" id="routePanel" data-display="overlay" style="width:60%;">
+    <div id="memHis" style="overflow:scroll; height:500px"></div>
+    </div> <!-- div 2-->
+
+        <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
+        
+       <!-- <a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+       <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+        
+        <a id="backjpj" style="height:18px" data-role="button" data-iconpos="left" onClick="productAddCartQue()" class="ui-btn-right">Next</a>
+        <h3>Product List</h3>
+        
+        
+        </div><!-- div 3-->
+         <font id="addCartprodctPage" style="font-size:13px; color:#060"></font>
+          <br>
+ <!--<p>-->
+ 
+         
+         <table width="100%" border="0">
+          <tr>
+            <td><font style="font-size:14px; color:#007D7D" id="prMemCart"></font></td>
+            <td><font style="font-size:16px; color:#800040" >Point</font></td>
+            <td><font style="font-size:16px; color:#800040" id="prPointCart"></font></td>
+          </tr>
+        </table>
+
+         <table width="600px" border="0">
+          <tr>
+          	<td width="30px">&nbsp; </td>
+            
+            <td> 
+            <select name="catListAddCart"  id="catListAddCart" onChange="selcetCartCat()"  >
+                <option value=""  >Category</option>
+             </select></td>
+          </tr>
+        </table>
+
+          
+              
+          
+     <!--  </p>
+       <p>&nbsp; </p>-->
+        <div id="prdctAddCartShow"  style="overflow:scroll; height:600px; width:1000px "  align="left"  >
+        <ul class="list" id="item_combo_id_cart" style="background-color:#EDFEED"> </ul>
+        
+        <br><br><br><br>
+        </div>   
+      	<br><br><br><br><br><br><br><br>
+          
+        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
+        
+        <a  href="#routePanel" onClick="memHistory()"  class="ui-btn-right" >History<br></a>
+        <br><br>
+        </div>
+     <br>
+ </div> <!-- div 1-->
+ 
+ 
+ 
+<!---------------------------------- Add to Cart product List End1----------->
+
+<!----------------------------------------------Add to Cart Que List Start2------------------->
+
+ <div data-theme="c" data-role="page" id="CartPQueList" style="background-color:#EBFCFA"  >
+       <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
+       
+     <!--<a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+     
+       <!--<a id="backjpj" style="height:18px" data-role="button" data-iconpos="left" onClick="getOrder()" class="ui-btn-right">Next</a>-->
+            <h3>Que List</h3>
+
+           
+  </div> <!--<div>--2-->
+  <font id="prodctQList" style="font-size:12px; color:#060"></font>
+         
+         
+          
+ <table width="100%" border="0">
+  <tr>
+    <td><font style="font-size:14px; color:#007D7D" id="prMSave"></font></td>
+    <td><font style="font-size:16px; color:#800040" >Point</font></td>
+    <td><font style="font-size:16px; color:#800040" id="prSPoint"></font></td>
+  </tr>
+</table>
+<br>
+  <div id="prdctAddCartQueShow" style="overflow:scroll; height:300px">
+          <font id="add_cart_Que_combo_id" style="overflow:scroll"></font>
+    </div> 
+    
+ <div class="errorChkAddCartpurchase"></div> 
+ <div id="purchase_image_new" ><img height="40px" width="40px" src="loading.gif"></div> <!--<div>--5-->
+ 
+ <a data-role="button" id="addCartPurchaseBtn"   onClick="addCartPurchaseDataSave()" >Proceed to Check Out</a> 
+ 
+ <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  ></div> <!--<div>--6-->
+
+ <br>
+ </div> <!--<div>--1-->
+<!----------------------------------------------Add to Cart Que List End2 ------------------->
+
+
+
+<!----------------------------------------------Confirm------------------->
+    
+    <div data-theme="c" data-role="page" id="ConfirmPageSave" style="background-color:#EBFCFA;overflow:scroll" >	 	
+        <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8;"> 		   
+        <!--<a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
+        <!--<a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>-->
+        <h3>Submit</h3>
+        </div> 
+        
+      	<div data-role="content"> 
+            <table width="100%" border="0">
+                <tr>
+                 <td style="color:#0060BF">  <font style="font-size:14px; color:#009D00" id="prRedMemPS">  </font></td>
+                  <td style="color:#0060BF"> </td>
+               </tr>
+               <tr>
+                  <td style="color:#0060BF"><font style="font-size:16px; color:#009D00" id="prRedMemNamePS">  </font> </td>
+                  <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A">Point</font></td>
+                  <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A" id="prRedPointPS"></font></td>
+               </tr>
+            </table>  
+ 		<br>
+        <div id="prdctQueConShow" style="overflow:scroll">     
+			<div id="purchaseFinalShow" ></div>
+              <br>
+              
+			<div id="TotalProductPoint" style="color:#960522; font-size:18px; padding-bottom:10px;"></div>
+            <form style="color:#000; margin:0; padding:0;">
+                <fieldset style="border:1px solid #CCC;">
+                	<legend style="color:#0060BF;">Payment Mode</legend>
+                    <select id="payComb" name="payComb" onChange="setTextPay()" data-native-menu="false">
+                        <option value="Cash" style="color:#000;">Cash</option>
+                        <option value="BKash" style="color:#000;">BKash</option>
+                        <option value="CreditCard" style="color:#000;">CreditCard</option>
+                    </select> 
+                
+                <div id="payCombTextDiv">
+                <font style="font-size:10px; color:#600" >bKash No:</font>
+                    <input name="BKashNo" id="BKashNo" type="number" value="" >
+                <font style="font-size:10px; color:#600" > bKash Transaction ID: </font>
+                    <input name="BT_id" id="BT_id" type="text" value="" >
+                <br>
+                <a data-role="button" id="bkashConfirmBtn"  onClick="bKashConfirm()"> Confirm </a>
+                     
+                </div> 
+                </fieldset>
+            </form> 
+            <div id="errorChkpurchaseF"></div> 
+            <div id="purchaseF_image" ><img height="40px" width="40px" src="loading.gif"></div>
+        	<br>
+            <table width="100%">
+                <tr >
+                    <td width="30px" > <input name="" type="checkbox" value="" ></td>
+                    <td > Confirm</td>
+                    <td >  <a data-role="button" id="saveButton"  onClick="finalPurchaseSave()" >Submit</a></td>
+                </tr>   
+            </table> 
+        </div>
+       
+       <div class="savedGiftError"></div>  
+      <br><br>  
+
+    </div> 
+        <br><br><br><br><br><br><br><br>  
+        
+      <!--<div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
+		
+        <a  href="#routePaneC" onClick="memHistory()"  class="ui-btn-right" >History<br></a>
+        <br><br>
+     </div>-->
+     <br>
+     
+ </div> 
+
+
+<!----------------------------------------------Successfully------------------->
+
+<div data-theme="c" data-role="page" id="submitPage" style="background-color:#FFF"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    
+        <h3>Add to Basket</h3>
+    
+    </div>
+    <div data-role="content">   
+    <table width="100%" border="0">
+        <tr>
+        	<!--<td align="center"><div id="visit_success" align="center"></div></td>-->
+            <td ><div id="" style="text-align:center !important;"><img src="cat_img/shopping_cart_full_big.png" style="height:250px; width:300px;"></div><div id="img_name" style="color:#063;"><p><strong>Successfully Added to Basket</strong></p></div></a></td>
+        
+        </tr>
+    </table>
+
+    <br>
+     
+     <!--<div id="button_show"></div>--> 
+      <!--<div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  ></div> -->
+      <a data-role="button" href="" onClick="PurchaseDone()">Purchase & CheckOut</a>
+      
+  </div>
+</div>
+ 
+ 
+ <div data-theme="c" data-role="page" id="checkedOut" style="background-color:#FFF"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    
+        <h3>Checked Out</h3>
+    
+    </div>
+    <div data-role="content">   
+    <table width="100%" border="0">
+        <tr>
+            <td><div id="img_div" style="text-align:center; padding-top:15px;">
+            		<p><strong>Successfully Checked Out</strong></p>
+            		<p style="color:#063;"><strong>Payment Confirmed Point Added</strong></p>
+                    <p><span id="TotalProductPointShow" style="color:#063;"></span><span id="totalAllPoint" style="color:#063;"></span></p>
+                    
+            	</div>
+           </td>
+        </tr>
+    </table>
+    <br>
+    <a data-role="button" href="" onClick="Redeem()">Redeem & Get Gift</a>
+  </div>
+</div>
+ 
+<div data-theme="c" data-role="page" id="giftGiven" style="background-color:#FFF"  >
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    
+        <h3>Gift Given</h3>
+    
+    </div>
+    <div data-role="content">   
+    <table width="100%" border="0">
+        <tr>
+            <td><div id="img_div" style="text-align:center; padding-top:20px;">
+            		<p style="color:#063;"><strong>Successfully Gift Given</strong></p>
+            	</div>
+           </td>
+        </tr>
+    </table>
+    <br>
+    <a data-role="button" href="" onClick="menuSearch()">Home</a>    
+  </div>
+</div> 
+ 
+ 
+<!------------------------------------------------redeem-------------------->
+<div data-theme="c" data-role="page" id="redeemShow" style="background-color:#EBFCFA"  >
+        <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
+        <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="menu.png"></a>
+       <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+             <h3>Gift</h3>
+  
+     </div>
+    <div data-role="content">
+        <table width="100%" border="0">
+            <tr>
+                <td style="color:#0060BF">  <font style="font-size:14px; color:#009D00" id="prRedMem">  </font></td>
+                <td style="color:#0060BF"></td>
+            </tr>
+            <tr>
+                <td style="color:#0060BF"><font style="font-size:16px; color:#009D00" id="prRedMemName">  </font> </td>
+                <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A"> Point </font></td>
+                <td style="color:#0060BF"> <font style="font-size:16px; color:#A8224A" id="prRedPoint"></font></td>
+            </tr>
+        </table> 
+     
+        <div>
+            <br>
+            <label style="color:#0053A6" >Reward Currently available</label>
+            <br>
+            <div id="gSError" style="color:#910000"></div>
+            <div id="giftRedShow"></div>
+        </div>
+    
+    	<div class="errorChkGift"></div>  
+         <div id="Gift_image" ><img height="40px" width="40px" src="loading.gif"></div>
+    
+        <table width="100%">
+            <tr>
+                <td width="30px" > <input name="" id="checkId" type="checkbox" value="" required></td>
+                <td > Confirm</td>
+                <td >  <a data-role="button" id="saveButtonGift"  onClick="giftSave()" >Submit</a></td>
+            </tr>   
+        </table>
+    </div>   
+</div>
+		
+<!--<script type="text/javascript" src="phonegap.js"></script>-->
+<script type="text/javascript" src="cordova.js"></script>
+</body>
+</html>
