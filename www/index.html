@@ -318,12 +318,9 @@
 			//alert(localStorage.last_sync_date)
 			
 			if ((localStorage.sync=='Yes')&(localStorage.last_sync_date==today)){
-
 				homePage();
 			}
 			else{
-				
-				
 				url="#login";					
 				$.mobile.navigate(url);
 				
@@ -365,10 +362,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
  
 <div data-role="page" id="login" data-theme="c">
-    
   <div data-role="header" data-theme="c" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
-     <a style="height:18px"  href="#routePanel" ><img src="unilogo13.png"></a>
-     <a style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right " onClick="exit()" ><img src="exit.png"> </a>
+     <!--<a style="height:18px"  href="#routePanel" ><img src="unilogo13.png"></a>
+     <a style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right " onClick="exit()" ><img src="exit.png"> </a>-->
     
        <h1 >LOGIN</h1>
        
@@ -384,32 +380,18 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <label for="password">PASSWORD: </label>
                 <input type="number" name="cm_pass" id="cm_pass" placeholder="PASSWORD" value="" >
             </li>
-        </ul>
-                   
-    <!--<table width="500px" border="0">
-        <tr>
-            <td>PCC ID: </td>
-            <td width="150px"><input type="text"  name="cm_id" id="cm_id" placeholder="PCC ID" value=""  ></td>
-        </tr>
-        
-        
-        <tr>
-            <td>PASSWORD: </td>
-            <td><input type="number" name="cm_pass" id="cm_pass" placeholder="PASSWORD" value="" ></td>
-        </tr>
-    </table>
--->	 <!--<div>--5-->              
+        </ul>    
+                  
 	</br>
     <div id="login_error"  style="color:#900;"></div> <!--<div>--6-->
     <div id="login_image" style="text-align:center;"><img height="40px" width="40px" src="loading.gif"></div> <!--<div>--7-->
     <a id="loginButton" data-role="button"  onClick="login_user()" >Login</a>
     </div> 
-       
-   </div>             
- <!-- <div data-role="footer" ></div>    -->          
-
-</div> <!--<div>--1-->
-
+    
+    <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; font-size:11px;"  > 
+       Version 20180130
+     </div>
+ </div>  
 <!---------------------------------------Page Outlet------------------------------------->
 
 <div data-theme="c" data-role="page" id="pageOutlet" style="background-color:#EBFCFA" >
@@ -529,7 +511,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div data-role="fieldcontain">         
         <label for="genderComb" style="color:#0060BF" >Gender<span class="required">*</span></label>
         <select id="genderComb" name="genderComb" data-native-menu="false">
-            <option value="" selected style="color:#000;" id="colorChange">Select Gender</option>
+            <option value="0" selected style="color:#000;" >Select Gender</option>
             <option value="Male" style="color:#000;">Male</option>
             <option value="Female" style="color:#000;">Female</option>
         </select> 
@@ -538,7 +520,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div data-role="fieldcontain">    
         <label for="ageRange" style="color:#0060BF" >Age Range<span class="required">*</span></label>
         <select id="ageRange" name="ageRange" data-native-menu="false" >
-            <option value=""  selected style="color:#000;">Select Age</option>
+            <option value="0"  selected style="color:#000;">Select Age</option>
             <option value="10-20" style="color:#000;">10-20</option>
             <option value="20-30" style="color:#000;">20-30</option>
             <option value="30-40" style="color:#000;">30-40</option>
@@ -571,6 +553,10 @@ style="background-color:#5EBBE8; color:#fff"-->
 <!--<div data-theme="c" data-role="page" id="ProductList" style="background-color:#FFF; overflow:scroll;">
 <div data-theme="c" data-role="header" data-position="fixed"> -->
 <div data-theme="c" data-role="page" id="ProductList" style="background-color:#FFF; overflow:scroll;">
+	<div data-role="panel" id="routePanel" data-display="overlay" style="width:60%;">
+    <div id="memHis" style="overflow:scroll; height:500px"></div>
+    </div>
+	
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
 
     <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
@@ -579,7 +565,7 @@ style="background-color:#5EBBE8; color:#fff"-->
     <h3>Product List</h3>
 </div>
 		<div data-role="content" >
-             <table width="100%" border="0">
+             <table width="100%" border="0" >
              <tr>
              	<td colspan="3"><font id="prodctPage" style="font-size:13px; color:#060"></font></td>	
              </tr>
@@ -590,11 +576,11 @@ style="background-color:#5EBBE8; color:#fff"-->
               </tr>
             </table>
             <br>
-            <a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"></div></a>
+            <a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Redeem & Gift</p></div></a>
             
             <table width="100%"  style="cell-spacing:0px;" >
                 <tr>
-                	<td colspan="3"><font style="font-size:16px; color:#007D7D"><strong>Production Selection</strong></font></td>
+                	<td colspan="3"><font style="font-size:16px; color:#007D7D"><strong>Product Selection</strong></font></td>
                 </tr>
               <tr>
                 <td ><a href="#" onClick="proCatSelect('FC')" data-transition="slide"><div id="img_div"><img src="cat_img/Face_F.jpg" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Face</p></div><!--<div id="img_name"><p>Face</p></div>--></a></td>
@@ -619,11 +605,14 @@ style="background-color:#5EBBE8; color:#fff"-->
         </div>-->
         <br>
         <!--<a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a>--> 
-        <a id="rewardButton" data-role="button"  onClick="purchaseDataSave()" ><strong>Add to Cart</strong></a>
+        <!--<a id="rewardButton" data-role="button"  onClick="purchaseDataSave()" ><strong>Add to Cart</strong></a>-->
+        <a id="rewardButton" data-role="button"  onClick="PurchaseDone()" >Purchase & CheckOut</strong></a>
+        <!--<a href="" onClick="PurchaseDone()"><div id="img_div"><img src="cat_img/checkOut2.jpg" style="padding-top:10px; width:150px; height:80px;"><p style="padding:0px; margin:0px;">Purchase & CheckOut</p></div></a>-->
+        <br><br><br>
+        <a  href="#routePanel" data-role="button" onClick="memHistory()" style="width:100px; text-align:center;">History<br></a>
     </div> 
       	<br><br><br><br><br><br><br><br>
  </div> 
- 
  
  
 <!--<div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
@@ -631,8 +620,8 @@ style="background-color:#5EBBE8; color:#fff"-->
 
 <div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
-    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
-    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-left" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <a data-role="button" onclick="selectedProductShow();" class="ui-btn-right" data-transition="slide" style="height:18px; "><div style="width:75px; float:left">Add to Cart</div> <div style="width:90px;"><img src="back2.png" /></div></a>
     
     <h3>Product List</h3>
 </div>
@@ -651,11 +640,13 @@ style="background-color:#5EBBE8; color:#fff"-->
         <div>
         	<ul class="list" id="item_combo_id" style="background-color:#EDFEED; padding:0px; margin:0px;"> </ul>
         </div>
-        <br><br>
-        <a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a> 
+        <!--<br><br>
+        <a id="rewardButton" data-role="button"  onClick="selectedProductShow()" ><strong>Next</strong></a> -->
     </div> 
-      	<br><br><br><br><br><br><br><br>
-          
+      	<br><br><br>
+        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; "  > 
+       <a data-role="button" class="ui-btn" data-transition="slide"  onClick="selectedProductShow()" ><strong>Add to Cart</strong></a> 
+     </div>  
  </div>
  
  
@@ -859,16 +850,20 @@ style="background-color:#5EBBE8; color:#fff"-->
                   </tr>
             </table>
     		<br>
-            <table width="100%" border="0">
+            
+            <!--<a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Redeem & Gift</p></div></a>
+            <br>-->
+            <a data-role="button" id="addProduct" onClick="memberSelect()" >Next</a>
+            <!--<table width="100%" border="0">
                 <tr >
                     <td > <a data-role="button"  id="PnCButton"   onClick="PurchaseDone()" >Purchase & CheckOut</a></td>
-                    <td></td>
+                    
                     <td >  <a data-role="button"   onClick="Redeem()" >Redeem</a>   </td>
                 </tr>
                 <tr >
-                    <td colspan="3"><a data-role="button" id="addProduct" onClick="memberSelect()" >Add Product</a></td>
+                    <td ></td>
                 </tr>   
-            </table>
+            </table>-->
          <!--</font>
         </div>  -->
         <div class="errorMsg"></div>  
@@ -922,9 +917,9 @@ style="background-color:#5EBBE8; color:#fff"-->
          <!--</font>        
         </div>-->   
     </div>            
-      <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
+      <!--<div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff"  > 
 
-     </div>
+     </div>-->
  </div>
 <!---------------------------------- Redeem page End -------------------------->
 
@@ -1073,12 +1068,20 @@ style="background-color:#5EBBE8; color:#fff"-->
                     </select> 
                 
                 <div id="payCombTextDiv">
-                <font style="font-size:10px; color:#600" >bKash No:</font>
-                    <input name="BKashNo" id="BKashNo" type="number" value="" >
-                <font style="font-size:10px; color:#600" > bKash Transaction ID: </font>
-                    <input name="BT_id" id="BT_id" type="text" value="" >
-                <br>
-                <a data-role="button" id="bkashConfirmBtn"  onClick="bKashConfirm()"> Confirm </a>
+                <table width="100%" border="0">
+                  <tr>
+                    <td><font style="font-size:10px; color:#600" >bKash No:</font></td>
+                    <td><input name="BKashNo" id="BKashNo" type="number" value="" ></td>
+                  </tr>
+                  <tr>
+                  	<td><font style="font-size:10px; color:#600" > Transaction ID: </font></td>
+                    <td><input name="BT_id" id="BT_id" type="text" value="" ></td>
+                  </tr>
+                  <tr>
+                  	<td></td>
+                    <td><a data-role="button" id="bkashConfirmBtn"  onClick="bKashConfirm()"> Verify Bkash </a></td>
+                  </tr>
+                </table>
                      
                 </div> 
                 </fieldset>
@@ -1089,7 +1092,7 @@ style="background-color:#5EBBE8; color:#fff"-->
             <table width="100%">
                 <tr >
                     <td width="30px" > <input name="" type="checkbox" value="" ></td>
-                    <td > Confirm</td>
+                    <td > <strong>Confirm Purchase</strong></td>
                     <td >  <a data-role="button" id="saveButton"  onClick="finalPurchaseSave()" >Submit</a></td>
                 </tr>   
             </table> 
@@ -1154,14 +1157,15 @@ style="background-color:#5EBBE8; color:#fff"-->
             <td><div id="img_div" style="text-align:center; padding-top:15px;">
             		<p><strong>Successfully Checked Out</strong></p>
             		<p style="color:#063;"><strong>Payment Confirmed Point Added</strong></p>
-                    <p><span id="TotalProductPointShow" style="color:#063;"></span><span id="totalAllPoint" style="color:#063;"></span></p>
+                    <!--<p><span id="TotalProductPointShow" style="color:#063;"></span><span id="totalAllPoint" style="color:#063;"></span></p>-->
                     
             	</div>
            </td>
         </tr>
     </table>
     <br>
-    <a data-role="button" href="" onClick="Redeem()">Redeem & Get Gift</a>
+    <a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Redeem & Gift</p></div></a>
+    <!--<a data-role="button" href="" onClick="Redeem()">Redeem & Get Gift</a>-->
   </div>
 </div>
  
