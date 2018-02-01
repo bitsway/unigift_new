@@ -389,7 +389,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div> 
     
     <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; font-size:11px;"  > 
-       Version 20180130
+       Version 20180131
      </div>
  </div>  
 <!---------------------------------------Page Outlet------------------------------------->
@@ -607,6 +607,7 @@ style="background-color:#5EBBE8; color:#fff"-->
         <!--<a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a>--> 
         <!--<a id="rewardButton" data-role="button"  onClick="purchaseDataSave()" ><strong>Add to Cart</strong></a>-->
         <a id="rewardButton" data-role="button"  onClick="PurchaseDone()" >Purchase & CheckOut</strong></a>
+        <div class="errorMsg"></div><br>
         <!--<a href="" onClick="PurchaseDone()"><div id="img_div"><img src="cat_img/checkOut2.jpg" style="padding-top:10px; width:150px; height:80px;"><p style="padding:0px; margin:0px;">Purchase & CheckOut</p></div></a>-->
         <br><br><br>
         <a  href="#routePanel" data-role="button" onClick="memHistory()" style="width:100px; text-align:center;">History<br></a>
@@ -625,7 +626,7 @@ style="background-color:#5EBBE8; color:#fff"-->
     
     <h3>Product List</h3>
 </div>
-		<div data-role="content" >
+		<div data-role="content" style="height:600px; overflow:scroll;">
              <font id="prodctPage" style="font-size:13px; color:#060"></font>
              
              <!--<table width="100%" border="0">
@@ -644,7 +645,7 @@ style="background-color:#5EBBE8; color:#fff"-->
         <a id="rewardButton" data-role="button"  onClick="selectedProductShow()" ><strong>Next</strong></a> -->
     </div> 
       	<br><br><br>
-        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; "  > 
+        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; margin-bottom:0;"  > 
        <a data-role="button" class="ui-btn" data-transition="slide"  onClick="selectedProductShow()" ><strong>Add to Cart</strong></a> 
      </div>  
  </div>

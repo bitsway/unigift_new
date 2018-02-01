@@ -1069,7 +1069,8 @@ function PurchaseDone(){
 	var memMob=$("#redMobile").val();
 	/*var memShow=localStorage.radioMem
 	var memMob=memShow.split('|')[1]*/
-	if (memMob!=""){
+	var submitPurData=localStorage.submitPurchase;
+	if (submitPurData!=""){
 		//alert(apiPath+'search_purchase?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+IdOutlet+'&memMob='+memMob);
 		$.ajax({
 			type:'POST',
@@ -1144,7 +1145,7 @@ function PurchaseDone(){
 		url="#RedeemList";					
 		$.mobile.navigate(url);	 
 	}else{
-		$(".errorMsg").html('Please Select Que/Enter Mobile No');
+		$(".errorMsg").html('Required Product');
 	}
 }	
 
@@ -1202,6 +1203,9 @@ function ConfirmPage(){
 	
 	//$("#selectedItem").empty()
 	
+	localStorage.selectedProductShow="";
+	localStorage.submitPurchase="";
+	
 	url="#ConfirmPageSave";					
 	$.mobile.navigate(url);	
 	}
@@ -1254,6 +1258,7 @@ function finalPurchaseSave(){
 	
 			if (result2=='Success'){
 				 localStorage.selectedProductShow="";
+				 localStorage.submitPurchase="";
 				  
 				 $("#BKashNo").val('')
 				 $("#prPhotoName").val('')
@@ -1639,6 +1644,7 @@ function setOutlet(outlet){
 }
 
 function proCatSelect(id){
+	$(".errorMsg").html('');
 	url="#ProductListDetails";					
 	$.mobile.navigate(url);
 	
