@@ -179,6 +179,8 @@
 
    $(document).ready(function(){ 
   			//alert (localStorage.last_sync_date)
+			localStorage.selectedProductShow="";
+			localStorage.submitPurchase="";
 			
 			$("#login_image").hide();
 			
@@ -389,7 +391,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div> 
     
     <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; font-size:11px;"  > 
-       Version - 20180131
+       Version 20180205
      </div>
  </div>  
 <!---------------------------------------Page Outlet------------------------------------->
@@ -411,7 +413,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
 <div data-theme="c" data-role="page" id="menuPage" style="background-color:#FFF; overflow:scroll"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff" data-add-back-btn="true" > 
-    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="pageOutlet()" ><img src="menu.png"></a>
+    <a data-role="button" style="height:18px;"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="pageOutlet()" ><img src="unilogo13.png"></a>
     <h3>Gift List</h3>
     </div> 
     
@@ -481,7 +483,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
 <div data-theme="c" data-role="page" id="registration" style="background-color:#EBFCFA; overflow:scroll"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
-    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"  ><img src="menu.png"></a>
+    <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"  ><img src="unilogo13.png"></a>
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
     <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
     <h3>Add Member</h3>
@@ -518,7 +520,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </div>
         
         <div data-role="fieldcontain">    
-        <label for="ageRange" style="color:#0060BF" >Age Range<span class="required">*</span></label>
+        <label for="ageRange" style="color:#0060BF" >Age Range</label>
         <select id="ageRange" name="ageRange" data-native-menu="false" >
             <option value="0"  selected style="color:#000;">Select Age</option>
             <option value="10-20" style="color:#000;">10-20</option>
@@ -594,9 +596,9 @@ style="background-color:#5EBBE8; color:#fff"-->
               </tr>
             </table>
         
-		<div style="border-bottom:2px solid #CCC; border-top:1px solid #CCC; background-color:#EDFEED;">
+		<!--<div style="border-bottom:2px solid #CCC; border-top:1px solid #CCC; background-color:#EDFEED;">
         	<font id="selectedItem"></font>
-         </div>     
+         </div>-->     
         <br>
      <!--id="prdctShow"-->
         <!--<div  style="overflow:scroll; height:600px;" >
@@ -829,18 +831,16 @@ style="background-color:#5EBBE8; color:#fff"-->
 
    <div data-theme="c" data-role="page" id="ProductQueRedList" style="background-color:#EBFCFA; overflow:scroll;"  >
       <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
-     <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="menu.png"></a>
+     <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
      <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
       <h3>Purchase / Redeem</h3>
  
   </div>
       <br> 
   <div data-role="content">
-      <!--<div id="prdctQueRedShow" style="overflow:scroll">
-          <font id="item_Que_comboRed_id" style="overflow:scroll">-->
-     
-            Please select from Que
-               
+  				
+      <span style="color:#666; font-weight:bold">Please select from Que</span>
+           <br><br>
             <div id="queMem" ></div>
     		<br>
              <table width="100%" border="0">
@@ -905,14 +905,6 @@ style="background-color:#5EBBE8; color:#fff"-->
         
         <div id="purchaseShow"></div>
         <br>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td >&nbsp;&nbsp;<img src="camera.png" width="40" height="40" alt="TakePic" onClick="get_pic_HairCare()"></td>
-                    <td align="center" ><img  width="100" height="100" alt="" id="myImage" ;><input name="prPhoto" id="prPhoto" type="hidden" value="" ><input name="prPhotoName" id="prPhotoName" type="hidden" value=""  >
-                    </td>
-                </tr>
-            </table><br>
-                
         <div id="pError"></div>
         <a data-role="button"   onClick="ConfirmPage()" >Next</a>
          <!--</font>        
@@ -1035,9 +1027,12 @@ style="background-color:#5EBBE8; color:#fff"-->
 <!----------------------------------------------Confirm------------------->
     
     <div data-theme="c" data-role="page" id="ConfirmPageSave" style="background-color:#EBFCFA;overflow:scroll" >	 	
-        <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8;"> 		   
-        <!--<a data-rel="back" style="height:18px" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left"   ><img src="back1.png"></a>-->
-        <!--<a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>-->
+        <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8;"> 
+        <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+        
+        <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+        
+        
         <h3>Submit</h3>
         </div> 
         
@@ -1058,7 +1053,7 @@ style="background-color:#5EBBE8; color:#fff"-->
 			<div id="purchaseFinalShow" ></div>
               <br>
               
-			<div id="TotalProductPoint" style="color:#960522; font-size:18px; padding-bottom:10px;"></div>
+			<div id="TotalProPoint" style="color:#960522; font-size:18px; padding-bottom:10px;"></div>
             <form style="color:#000; margin:0; padding:0;">
                 <fieldset style="border:1px solid #CCC;">
                 	<legend style="color:#0060BF;">Payment Mode</legend>
@@ -1087,19 +1082,29 @@ style="background-color:#5EBBE8; color:#fff"-->
                 </div> 
                 </fieldset>
             </form> 
-            <div id="errorChkpurchaseF"></div> 
+            <div id="errorChkpurchaseF" style="color:#900;"></div> 
+            <br>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td >&nbsp;&nbsp;<img src="camera.png" width="40" height="40" alt="TakePic" onClick="get_pic_HairCare()"></td>
+                    <td align="center" ><img  width="100" height="100" alt="" id="myImage" ;><input name="prPhoto" id="prPhoto" type="hidden" value="" ><input name="prPhotoName" id="prPhotoName" type="hidden" value=""  >
+                    </td>
+                </tr>
+            </table><br>
+            
             <div id="purchaseF_image" ><img height="40px" width="40px" src="loading.gif"></div>
         	<br>
-            <table width="100%">
+            <!--<table width="100%">
                 <tr >
-                    <td width="30px" > <input name="" type="checkbox" value="" ></td>
+                    <td width="30px" > <input id="clkbox" name="clkbox" type="checkbox" value="Yes" ></td>
                     <td > <strong>Confirm Purchase</strong></td>
                     <td >  <a data-role="button" id="saveButton"  onClick="finalPurchaseSave()" >Submit</a></td>
                 </tr>   
-            </table> 
+            </table> -->
+            <a data-role="button" id="saveButton"  onClick="finalPurchaseSave()" >Submit</a>
         </div>
-       
-       <div class="savedGiftError"></div>  
+       <div class="errorChk"></div> 
+       <!--<div class="savedGiftError"></div> --> 
       <br><br>  
 
     </div> 
@@ -1146,7 +1151,7 @@ style="background-color:#5EBBE8; color:#fff"-->
  
  <div data-theme="c" data-role="page" id="checkedOut" style="background-color:#FFF"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
-    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
     
         <h3>Checked Out</h3>
@@ -1172,8 +1177,8 @@ style="background-color:#5EBBE8; color:#fff"-->
  
 <div data-theme="c" data-role="page" id="giftGiven" style="background-color:#FFF"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
-    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
-    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
+    <!--<a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>-->
     
         <h3>Gift Given</h3>
     
@@ -1188,7 +1193,8 @@ style="background-color:#5EBBE8; color:#fff"-->
         </tr>
     </table>
     <br>
-    <a data-role="button" href="" onClick="menuSearch()">Home</a>    
+   <!-- <a data-role="button" href="" onClick="menuSearch()">Home</a>-->  
+    <a data-role="button" href="" onClick="homePageReload()">Home</a> 
   </div>
 </div> 
  
@@ -1196,7 +1202,7 @@ style="background-color:#5EBBE8; color:#fff"-->
 <!------------------------------------------------redeem-------------------->
 <div data-theme="c" data-role="page" id="redeemShow" style="background-color:#EBFCFA"  >
         <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
-        <a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="menu.png"></a>
+        <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
        <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
              <h3>Gift</h3>
   
@@ -1218,20 +1224,19 @@ style="background-color:#5EBBE8; color:#fff"-->
             <br>
             <label style="color:#0053A6" >Reward Currently available</label>
             <br>
-            <div id="gSError" style="color:#910000"></div>
             <div id="giftRedShow"></div>
         </div>
     
-    	<div class="errorChkGift"></div>  
          <div id="Gift_image" ><img height="40px" width="40px" src="loading.gif"></div>
     
         <table width="100%">
             <tr>
-                <td width="30px" > <input name="" id="checkId" type="checkbox" value="" required></td>
+                <td width="30px" > <input name="checkId" id="checkId" type="checkbox" value="Yes" ></td>
                 <td > Confirm</td>
                 <td >  <a data-role="button" id="saveButtonGift"  onClick="giftSave()" >Submit</a></td>
             </tr>   
         </table>
+        <div class="errorMsg" style="color:#900"></div>
     </div>   
 </div>
 		

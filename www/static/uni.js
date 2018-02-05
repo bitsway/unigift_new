@@ -2,9 +2,8 @@
 //var apiPath='http://127.0.0.1:8000/unigift/syncmobile_eon_bKashNew_amount/';
 
 //var apiPath='http://127.0.0.1:8000/unigift/syncmobile/';
-//var apipath_image = 'http://127.0.0.1:8000/moderntrade/';
 
-var apiPath='http://w02.yeapps.com/unigift/syncmobile/'
+var apiPath='http://w02.yeapps.com/unigift/syncmobile_2018/'
 var apipath_image='http://i001.yeapps.com/image_hub/unigift/upload_image/'
 
 
@@ -54,13 +53,17 @@ function backClick(){
 	$("#login_error").text("");
 }
 
+function homePageReload(){
+	location.reload();
+}
 function login() {
-	
 	url="#login";					
 	$.mobile.navigate(url);
 	
 }
 function homePage() {
+	$(".errorChk").text("");
+	$(".errorMsg").text("");
 	url="#menuPage";					
 	$.mobile.navigate(url);
 	
@@ -110,10 +113,7 @@ function Redeem(){
 					var memRedMob=memInfoRed.split('-')[0];
 					localStorage.memRedMob=memRedMob
 					var memRedName=memInfoRed.split('-')[1];
-					localStorage.memRedName=memRedName
-					//alert (memRedName)
-	
-					
+					localStorage.memRedName=memRedName					
 					
 					giftdctStr=localStorage.giftdctStr
 					giftdctStrList=giftdctStr.split('<rdrd>')
@@ -137,7 +137,6 @@ function Redeem(){
 
 					
 					$("#redMobile").val(Mobile);
-					//$("#prMem").html(localStorage.memInfo);
 					$("#prRedMem").html(localStorage.outlet);
 					$("#prRedMemName").html(mem_name+'|'+Mobile);
 					$("#prRedPoint").html(mem_point);
@@ -165,18 +164,15 @@ function Redeem(){
 }
 
 
-
-
-
 function giftSave(){
+			$(".errorMsg").text("");
 			$("#Gift_image").show();
 			$("#saveButtonGift").hide();
 			
 			var memMb=localStorage.memRedMob;
 			var memNM=localStorage.memRedName
 			var memPoint=localStorage.memPoint;
-		
-			//var memPoint=localStorage.memPoint;
+			var checkId=$("input[name='checkId']:checked").val();
 			var outletShow=localStorage.outlet
 			var outletNameId=outletShow.split('|');
 			var outletId=outletNameId[0];
@@ -191,78 +187,64 @@ function giftSave(){
 			var giftShow=''
 			var submitRedeem=''		
 			var giftPointC=0				 
-			for (i=0; i<giftdctStrList.length-1; i++){	
-			
-					var qtyName="qtyName_"+i.toString()
-					var gNameID="gNameID_"+i.toString()
-					
-					var qtyNameValue=$("#"+qtyName).val()
-					if (parseInt(qtyNameValue)>0)	{
-					giftStrShow = 	giftdctStrList[i]				
-									strList=giftStrShow.split('|')	
-									var	giftId = strList[0]		
-									var	giftName = strList[1]
-									var	giftPoint = strList[2]
-									giftPointC=giftPointC+(parseInt(giftPoint)*parseInt(qtyNameValue))
-									submitRedeem=submitRedeem+giftId+'<fdfd>'+giftName+'<fdfd>'+giftPoint+'<fdfd>'+qtyNameValue+'<rdrd>'
-							
-						
-					 }//if
-			
-	       localStorage.submitRedeem=submitRedeem
-		   
-			}
-		   //alert (giftPointC)	
-	     //alert (localStorage.submitRedeem)
-		 //alert(apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb)
-		
-		
-		if (giftPointC <= parseInt(memPoint) & parseInt(giftPointC)>0){
-			//alert (apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb)
-			 $.ajax({
-				type:'POST',
-				url:apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb,
-			
-				success: function(result) {
-					//alert(result)
-					//alert ('hi')	
-					if (result!='Failed'){
-					//$("#visit_success").html("Submitted Successfully");
-					
-					/*$("#button_show").html('<input style="background-color:#00B0B0; height:30px; width:100%; color:#FFF; font-size:14px" type="submit"  value="         Home          "   onClick="menuSearch()">');*/
-
-					
-					$("#Gift_image").hide();
-					$("#saveButtonGift").show();
-					
-					url="#giftGiven";					
-			  		$.mobile.navigate(url);
-					}
-					else{
-						$("#errorChkGift").html('Failed')
-						$("#Gift_image").hide();
-						$("#saveButtonGift").show();
-					}
+			for (i=0; i<giftdctStrList.length-1; i++){
+				var qtyName="qtyName_"+i.toString()
+				var gNameID="gNameID_"+i.toString()
 				
-				}      
-			 
-			  });
-			 	
+				var qtyNameValue=$("#"+qtyName).val()
+				if (parseInt(qtyNameValue)>0)	{
+					giftStrShow = 	giftdctStrList[i]				
+					strList=giftStrShow.split('|')	
+					var	giftId = strList[0]		
+					var	giftName = strList[1]
+					var	giftPoint = strList[2]
+					giftPointC=giftPointC+(parseInt(giftPoint)*parseInt(qtyNameValue))
+					submitRedeem=submitRedeem+giftId+'<fdfd>'+giftName+'<fdfd>'+giftPoint+'<fdfd>'+qtyNameValue+'<rdrd>'						
+				}
+			
+	       		localStorage.submitRedeem=submitRedeem
+			}
+		
+		if (checkId=='Yes'){
+			if (giftPointC <= parseInt(memPoint) & parseInt(giftPointC)>0){
+				//alert (apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb)
+				 $.ajax({
+					type:'POST',
+					url:apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb,
+				
+					success: function(result) {
+						if (result!='Failed'){	
+						
+							$("#Gift_image").hide();
+							$("#saveButtonGift").show();
+							
+							url="#giftGiven";					
+							$.mobile.navigate(url);
+						}else{
+							$(".errorMsg").text("Failed");
+							$("#Gift_image").hide();
+							$("#saveButtonGift").show();
+						}
+					
+					}      
+				 
+				  });
+					
+			}else{
+				$(".errorMsg").text("Point should be greater than Gift Point");
+				$("#Gift_image").hide();
+				$("#saveButtonGift").show();
+			}
 		}else{
-			$("#gSError").text("Point should be greater than Gift Point");
+			$(".errorMsg").text("Please Confirm");
 			$("#Gift_image").hide();
 			$("#saveButtonGift").show();
-			
 		}
 			
 	}	
 	
-	
-	
 function menuSearch(){
 	$('#otltName').html(localStorage.outlet);
-	
-	
 	url="#menuPage";					
 	$.mobile.navigate(url);	
 	location.reload();
@@ -279,13 +261,16 @@ function memberSelect(){
 	
 	var mPhoneNo=$("#redMobile").val();
 	
-	var mMobile=$("#mMobile").val();
+	var phone=$("#mMobile").val();
 		
-	if (mMobile !=""){
-		if (mMobile.length < 13 ){
-			mMobile='88'+mMobile
+	if (phone !=""){
+		if (phone.length < 13 ){
+			mMobile='88'+phone
+		}else{
+			mMobile=phone
 		}
-	}else{
+	}
+	if(mPhoneNo !=""){
 		if (mPhoneNo.length < 13 ){
 			mMobile='88'+mPhoneNo
 		}else{
@@ -312,14 +297,11 @@ function memberSelect(){
 					var mem_point=resultStr[3];
 	
 					localStorage.memInfo=Mobile+'-'+mem_name
-					localStorage.memPoint=mem_point
-					
+					localStorage.memPoint=mem_point;
 					$("#mMobile").val(Mobile);
 					$("#prMem").html(localStorage.memInfo);
 					$("#prPoint").html(localStorage.memPoint);
-					
-					//$("#selectedItem").empty()
-					
+										
 					$(".errorMsg").html("");
 					url="#ProductList";					
 					$.mobile.navigate(url);					
@@ -330,30 +312,18 @@ function memberSelect(){
 			 }
 		});
 	}else{
-		$(".errorMsg").html("Please Enter Mobile No");
+		$(".errorMsg").html("Please Select Que/Enter Mobile No");
 	}
 }		
 function productShowPage (){
 	url="#ProductListShow";					
 	$.mobile.navigate(url);	
-	
-	<!------------------------->
-//	$("#sTripBtn").hide()
-//	$("#queBtn").hide()
-	//$("#pListBtn").hide()
-//	$("#pStockBtn").hide()	
 }
 
 <!-------------- Product Stock Start --------------->
 function productStockPage (){
 	url="#StockListShow";					
 	$.mobile.navigate(url);	
-	
-	<!------------------------->
-	//$("#sTripBtn").hide()
-	//$("#queBtn").hide()
-	//$("#pListBtn").hide()
-	//$("#pStockBtn").hide()
 }
 
 <!-------------- Product Stock End --------------->
@@ -374,36 +344,24 @@ function addCartproduct(){
 function selcetCartCat(){
 	var catValue=$("#catListAddCart").val();
 	
-	//alert (localStorage.prdctShow)
 	prodctStr=localStorage.prodctStr
 	prodctListStr=prodctStr.split('<rdrd>');
 	var prdctAddCartShow=''
-	//alert (localStorage.prodctStr)
 	for (i=0; i<prodctListStr.length-1; i++){
 	 var cartName="CName_"+i.toString()
 	 var pNameID="pNameID_"+i.toString()
 	 var cat = prodctListStr[i].split('|')[2]
 	 pShowList=prodctListStr[i].split('|')
 	 var pShow=pShowList[0]+'|'+pShowList[3]
-	 //alert (cat)
 	 if (catValue=="ALL"){
-	 	//prdctAddCartShow=prdctAddCartShow+'<li class="ui-btn ui-shadow " style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin"><table><tr><td>   <input onKeyUp="addCartProductQueNew('+i+')" type="number" id="'+cartName+'"   name="'+cartName+'" style="width:50px"><input type="hidden" id="'+pNameID+'"   name="'+pNameID+'"  value="'+prodctListStr[i]+'"></td><td>'+pShow+'</td></tr></table></li>' 
 		prdctAddCartShow=prdctAddCartShow+'<li class="ui-btn ui-shadow " style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin"><table><tr><td>   <input onKeyUp="addCartProductQueNew('+i+')" type="number" id="'+cartName+'"   name="'+cartName+'" style="width:50px"><input type="hidden" id="'+pNameID+'"   name="'+pNameID+'"  value="'+prodctListStr[i]+'"></td><td>'+pShow+'</td></tr></table></li>'    
-									 
-									 
-		
 		  
-	 }
-	 else{
+	 }else{
 		 if (cat==catValue){
-		 	//prdctShow=prdctShow+'<table><tr><td> <input onKeyUp="productQueNew('+i+')" type="number" id="'+qName+'"   name="'+qName+'" style="width:50px"><input type="hidden" id="'+pNameID+'"   name="'+pNameID+'"  value="'+prodctListStr[i]+'"></td><td>'+prodctListStr[i]+'</td></tr></table>'
 			prdctAddCartShow=prdctAddCartShow+'<li class="ui-btn ui-shadow " style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin"><table><tr><td>   <input onKeyUp="addCartProductQueNew('+i+')" type="number" id="'+cartName+'"   name="'+cartName+'" style="width:50px"><input type="hidden" id="'+pNameID+'"   name="'+pNameID+'"  value="'+prodctListStr[i]+'"></td><td>'+pShow+'</td></tr></table></li>'    
 		 }
 	 }
-	// alert (prdctShow)
 	}
-	//alert (localStorage.prodctStr)
-	//alert (localStorage.prdctShow)
 	 
 	 localStorage.prdctAddCartShow=prdctAddCartShow
 	 var item_combo_id_ob=$('#item_combo_id_cart');
@@ -412,13 +370,11 @@ function selcetCartCat(){
 	item_combo_id_ob.append(prdctAddCartShow);
 	item_combo_id_ob.listview("refresh");
 
-
 }
 
 <!---------------------------------------------------------------->
 
 function addCartProductQueNew(i){
-	
 	$('#prodctQList').html(localStorage.outlet)
 	$("#prMSave").html(localStorage.memInfo);
 	$("#prSPoint").html(localStorage.memPoint);
@@ -427,18 +383,14 @@ function addCartProductQueNew(i){
 	var pNameID="pNameID_"+i.toString()
 	
 	var cartqNameValue=$("#"+cartName).val()
-	//alert(cartqNameValue)
 	var pNameIDValue=$("#"+pNameID).val()
-	//alert (localStorage.submitAddCart)
 	var submitAddCartget=localStorage.submitAddCart
-	
 	
 	if (parseInt(cartqNameValue)>0)	{
 		var qtyName=cartName
 		var pdNameID=pNameID
 
-		var strShow=pNameIDValue
-		//alert (strShow)			
+		var strShow=pNameIDValue		
 		strList=strShow.split('|')	
 				
 		var	prdctName = strList[0]
@@ -446,7 +398,6 @@ function addCartProductQueNew(i){
 		var	category = strList[2]
 		var	rate = strList[3]
 		var	point = strList[4]
-	
 		
 		var addProduct=prdctName+'<fdfd>'+prdctID+'<fdfd>'+category+'<fdfd>'+rate+'<fdfd>'+cartqNameValue+'<fdfd>'+point+'<rdrd>'
 		
@@ -460,17 +411,11 @@ function addCartProductQueNew(i){
 					submitAddCart=submitAddCartget.replace(strShow,addProduct)
 				}
 			}
-		}
-		
-		else{
+		}else{
 			submitAddCart=submitAddCartget+addProduct
-			}
-		
-		//submitPurchase=submitPurchaseget+prdctName+'<fdfd>'+prdctID+'<fdfd>'+category+'<fdfd>'+rate+'<fdfd>'+qNameValue+'<fdfd>'+point+'<rdrd>'
-		
 		}
 		
-	else {
+	}else{
 		var qtyName=cartName
 		var pdNameID=pNameID
 		var strShow=pNameIDValue		
@@ -485,7 +430,6 @@ function addCartProductQueNew(i){
 		var pShow=prdctName+'|'+rate+'|'+ category
 		var addProduct=prdctName+'<fdfd>'+prdctID+'<fdfd>'+category+'<fdfd>'+rate+'<fdfd>'+cartqNameValue+'<fdfd>'+point+'<rdrd>'
 		
-	
 		if (submitAddCartget.indexOf(prdctID+'<fdfd>') !=-1){
 			submitAddCartList=submitAddCartget.split('<rdrd>')
 			for (i=0; i<submitAddCartList.length-1; i++){
@@ -501,7 +445,7 @@ function addCartProductQueNew(i){
 		}
 	}
 		
-		localStorage.submitAddCart=submitAddCart
+	localStorage.submitAddCart=submitAddCart
 		
 	
 }
@@ -509,11 +453,7 @@ function addCartProductQueNew(i){
 <!-------------------------------------------------------------------------------->	
 
 function productAddCartQue(){
-	//alert('hi')
-	//alert (localStorage.submitAddCart)
-	//alert ('NAdira')
 	var prdctAddCartShow=''
-	
 	
 	var submitAddCartG=localStorage.submitAddCart
 	
@@ -523,8 +463,7 @@ function productAddCartQue(){
 	
 	for (i=0; i<submitAddCartList.length-1; i++){
 		
-		strShow = 	submitAddCartList[i]	
-		//alert (strShow)		
+		strShow = 	submitAddCartList[i]		
 		if 	(strShow.length > 0){
 			strList=strShow.split('<fdfd>')			
 			var	prdctName = strList[0]
@@ -543,12 +482,8 @@ function productAddCartQue(){
 
 		$("#add_cart_Que_combo_id").empty()
 		$("#add_cart_Que_combo_id").append(localStorage.prdctAddCart);
-		
-
-		
-		
+				
 	}
-	//alert (localStorage.prdctShowCart)
 	if (localStorage.prdctAddCart!=''){
 		$("#purchase_image_new").hide()
 		$("#purchaseBtn").show()
@@ -578,7 +513,6 @@ function addCartPurchaseDataSave(){
 	 var outletId=outletNameId[0];
      var outletName=outletNameId[1];
 	 var submitStrAddCart=localStorage.submitAddCart
-	// alert (localStorage.memPoint)
 	 submitStrAddCart=submitStrAddCart.replace('undefined<rdrd>','') 
 
 	// alert(apiPath+'addCartPurchase_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrAddCart='+encodeURIComponent(submitStrAddCart)+'&memPoint='+localStorage.memPoint+'&memName='+memName+'&memMobile='+memMobile)
@@ -588,82 +522,58 @@ function addCartPurchaseDataSave(){
 		url:apiPath+'addCartPurchase_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrAddCart='+encodeURIComponent(submitStrAddCart)+'&memPoint='+localStorage.memPoint+'&memName='+memName+'&memMobile='+memMobile,
 	
         success: function(result4) {
-			//alert(result2)
-			//alert ('hi')	
 			if (result4!='Failed'){
-			//$("#visit_success").html("</br></br>Successfully added to cart");
-			localStorage.radioMem=memName+'|'+memMobile	
-			var radioMem=localStorage.radioMem
-			var radioMemMobile=radioMem.split('|')[1]
-			//alert ('Test')
-			$("#redMobile").val(radioMemMobile);
-			
-			/*$("#button_show").html(' <a data-role="button"    onClick="PurchaseDone()" >Purchase & CheckOut</a>');*/
-			
-			localStorage.submitAddCart=''
-			localStorage.prdctAddCart=''
-			
-			
-			$("#purchase_image").hide();
-	 		$("#addCartPurchaseBtn").show();	
-			url="#submitPage";					
-			$.mobile.navigate(url);		
-			}
-			else{
+				localStorage.radioMem=memName+'|'+memMobile	
+				var radioMem=localStorage.radioMem
+				var radioMemMobile=radioMem.split('|')[1]
+				$("#redMobile").val(radioMemMobile);
+							
+				localStorage.submitAddCart=''
+				localStorage.prdctAddCart=''
+				
+				
+				$("#purchase_image").hide();
+				$("#addCartPurchaseBtn").show();	
+				url="#submitPage";					
+				$.mobile.navigate(url);		
+			}else{
 				$("#errorChkpurchase").html('Sorry Network not available');
 				$("#purchase_image").hide();
 	 			$("#addCartPurchaseBtn").show();
 				
-				}
+			}
 		}      
  
 	  });
-	  
-	
 	}	
-	
 	
 <!---------------------------------- Add to Cart product List End----------->
 
-	
-	
 function product(){
 	$('#prodctPage').html(localStorage.outlet)
 	url="#ProductList";					
 	$.mobile.navigate(url);	
-	}
+}
 	
-		
-
-
 <!----------------- Product Stock -18/12/17 --------------------->
 
 function productStockQueNew(i){
 	
 	$('#prodctStockQList').html(localStorage.outlet)
-	//alert(localStorage.outlet)
-//	$("#prMSave").html(localStorage.memInfo);
-//	$("#prSPoint").html(localStorage.memPoint);
 	var sQName="SqName_"+i.toString()
-	//alert(sQName)
 	
 	var pNameID="pNameID_"+i.toString()
-	//alert(pNameID)
 	
 	var sqNameValue=$("#"+sQName).val()
 	var pNameIDValue=$("#"+pNameID).val()
 	
-	//alert (pNameIDValue)
-//	var submitStockget=localStorage.prodctStr
 	var submitStockget=localStorage.submitStock
 	
-	if (parseInt(sqNameValue)>0)	{
-	//	var qtyName=qName
+	if (parseInt(sqNameValue)>0){
 		var qtyName=sQName
 		var pdNameID=pNameID
 
-		var strShow=pNameIDValue
-		//alert (strShow)			
+		var strShow=pNameIDValue		
 		strList=strShow.split('|')	
 				
 		var	prdctName = strList[0]
@@ -685,15 +595,11 @@ function productStockQueNew(i){
 					submitStock=submitStockget.replace(strShow,addProduct)
 				}
 			}
-		}
-		
-		else{
+		}else{
 			submitStock=submitStockget+addProduct
-			}
-		
 		}
 		
-	else {
+	}else {
 		var qtyName=sQName
 		var pdNameID=pNameID
 		var strShow=pNameIDValue		
@@ -723,7 +629,6 @@ function productStockQueNew(i){
 			
 		}
 	}
-	//	alert(submitStock)
 		localStorage.submitStock=submitStock
 	
 }
@@ -799,7 +704,7 @@ function productStockQue(){
 			var point= strList[4]
 			var sqNameValue= strList[5]
 			var pShow=prdctName+'|'+rate+'|'+ category+'|'+ point
-			//alert(sqNameValue)
+			
 			if (parseInt(sqNameValue)>0)	{
 			
 			prdctShowStock=prdctShowStock+'<tr><td style="background-color:#CEF">'+pShow+'</td> <td width="50px" style="background-color:#FFEAF4" align="center">'+sqNameValue+'</td></tr>'
@@ -812,7 +717,6 @@ function productStockQue(){
 		
 	}
 	if (localStorage.prdctStockCart!=''){
-		//$("#purchase_image").hide()
 		$("#stockBtn").show()
 		
 		$("#errorChkStock").html('')
@@ -874,7 +778,7 @@ function productQueRedeem(){
 						memMob=memStrList[i].split('<fd>')[0]
 						memName=memStrList[i].split('<fd>')[1]
 						
-						/*outletShow=outletShow+'<li class="ui-btn ui-shadow ui-corner-all" style="border-color:#CBE4E4;" onClick="checkRadioVal('+i+')"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memName+'|'+memMob+'" >'+memName+'|'+memMob+'</li>'*/
+						
 						outletShow=outletShow+'<label class="ui-btn ui-shadow ui-corner-all" style="border-color:#CBE4E4;" onClick="checkRadioVal('+i+')"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memName+'|'+memMob+'" >'+memName+'|'+memMob+'</label>'
 					}
 					
@@ -884,7 +788,6 @@ function productQueRedeem(){
 						i=i+1
 						memMobFinal=memStrListFinal[j].split('<fd>')[0]
 						memNameFinal=memStrListFinal[j].split('<fd>')[1]
-						/*outletShow=outletShow+'<li class="ui-btn ui-shadow ui-corner-all" style="background-color:#FFFFC6;  border-color:#CBE4E4;" onClick="checkRadioVal('+i+');"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memNameFinal+'|'+memMobFinal+'" >'+memNameFinal+'|'+memMobFinal+'</li>'*/
 						
 						outletShow=outletShow+'<label class="ui-btn ui-shadow ui-corner-all" style="background-color:#FFFFC6;  border-color:#CBE4E4;" onClick="checkRadioVal('+i+');"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memNameFinal+'|'+memMobFinal+'" >'+memNameFinal+'|'+memMobFinal+'</label>'
 
@@ -892,11 +795,6 @@ function productQueRedeem(){
 					localStorage.queMem=outletShow;
 					$("#queMem").html(localStorage.queMem);
 					
-					/*if (memStr==''){
-						$("#PnCButton").hide(); 
-					}else{
-						$("#PnCButton").show();
-					}*/
 				}
 			},
 			 error: function(result) {
@@ -914,24 +812,17 @@ function productQueRedeem(){
 }
 
 function checkRadioVal(i){
-	//var radioMem=($("input:radio[name='radio_mem']:checked").val())
-	//alert(radioMem);
+	localStorage.radioMem="";
+	$("#redMobile").val("");
+	//var radioMem=($("input:radio[name='radio_mem']:checked").val())	
 	var radioMemGet="#radioMem_"+i;
-	//alert(radioMemGet);
 	$(radioMemGet).attr('checked', true) 
-	//alert (radioMemGet)
-	// var radioMemGet="#radioMem_"+i
 	var radioMem=$(radioMemGet).val();
-	//alert(radioMem);
 	localStorage.radioMem=radioMem	
 	var radioMemMobile=radioMem.split('|')[1]
 	$("#redMobile").val(radioMemMobile);
 	$("#redMobile").attr("disabled", "disabled"); 
 	
-	/*url="#ProductQueRedList";					
-	$.mobile.navigate(url);	*/
-	
-	//$( "#"+radioMemGet ).prop( "checked", true );
 }
 function clearText(){
 	$( "#redMobile" ).prop( "disabled", false );
@@ -945,11 +836,8 @@ function checkRadio(){
 		
 		$('#queMem').find('input, textarea, button, select').attr('disabled','disabled');
 
-	}
-	else{
+	}else{
 		$("#queMem").html(localStorage.queMem);
-		//$('#queMem').find('*').prop('disabled',false);
-		//$( "#queMem" ).prop( "disabled", true );
 	}
 }
 /*function purchaseDataSave(){
@@ -1013,12 +901,10 @@ function checkRadio(){
 function stockDataSave(){
 
 	 var outletShow=localStorage.outlet
-	// alert(outletShow)
 	 var outletNameId=outletShow.split('|');
 	 var outletId=outletNameId[0];
      var outletName=outletNameId[1];
 	 var submitStrStock=localStorage.submitStock
-	// alert(submitStrStock)
 	
 	 submitStrStock=submitStrStock.replace('undefined<rdrd>','') 
 	// alert(apiPath+'stock_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrStock='+encodeURIComponent(submitStrStock))
@@ -1028,27 +914,22 @@ function stockDataSave(){
 		url:apiPath+'stock_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrStock='+encodeURIComponent(submitStrStock),
 	
         success: function(result3) {
-			//alert(result3)
-			//alert ('hi')	
 			if (result3!='Failed'){
 
-			localStorage.submitStock=''
-			//alert(localStorage.submitStock)
-			localStorage.prdctStockCart=''
-			//alert(localStorage.prdctStockCart)
-			
-			$(".errorChkStock").html("Submitted Successfully");
-	 		$("#stockBtn").hide();
-			<!------------------------->
-			url="#menuPage";					
-			$.mobile.navigate(url);	
-			
-			$("#sTripBtn").show();
-			$("#queBtn").show();
-			$("#pListBtn").show();
-			$("#pStockBtn").show();	
-			}
-			else{
+				localStorage.submitStock=''
+				localStorage.prdctStockCart=''
+				
+				$(".errorChkStock").html("Submitted Successfully");
+				$("#stockBtn").hide();
+				<!------------------------->
+				url="#menuPage";					
+				$.mobile.navigate(url);	
+				
+				$("#sTripBtn").show();
+				$("#queBtn").show();
+				$("#pListBtn").show();
+				$("#pStockBtn").show();	
+			}else{
 				$("#errorChkStock").html('Failed');
 //				
 	 			$("#stockBtn").show();
@@ -1061,16 +942,30 @@ function stockDataSave(){
 	}	
 
 <!----------------Product Stock -18/12/17 ---------------->		
-function PurchaseDone(){	
+function PurchaseDone(){
+	//localStorage.pStr="";	
 	var outletShow=localStorage.outlet
 	var outletIDN=outletShow.split('|');
 	var IdOutlet=outletIDN[0];
 	
-	var memMob=$("#redMobile").val();
-	/*var memShow=localStorage.radioMem
-	var memMob=memShow.split('|')[1]*/
-	var submitPurData=localStorage.submitPurchase;
-	if (submitPurData!=""){
+	var memPhone=$("#redMobile").val();	
+	var mMobile=$("#mMobile").val();
+		
+	if (mMobile !=""){
+		if (mMobile.length < 13 ){
+			memMob='88'+mMobile
+		}else{
+			memMob=mMobile
+		}
+	}
+	if (memPhone !=""){
+		if (memPhone.length < 13 ){
+			memMob='88'+memPhone
+		}else{
+			memMob=memPhone
+		}
+	}
+	
 		//alert(apiPath+'search_purchase?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+IdOutlet+'&memMob='+memMob);
 		$.ajax({
 			type:'POST',
@@ -1078,12 +973,18 @@ function PurchaseDone(){
 		
 			success: function(result) {
 				resultStr=result.split('<SYNCDATA>');
-				
-				if (resultStr[0]=='FAILED'){
-					$("#pError").html(resultStr[1]);
-					
-				}
-				if (resultStr[0]=='SUCCESS'){	
+				//alert(resultStr[1]);
+				if (resultStr[0]=='FAILED1'){
+					$(".errorMsg").text('Invalid User');
+					url="#ProductList";
+				}else if(resultStr[0]=='FAILED2'){
+					$(".errorMsg").text('Required Product');
+					url="#ProductList";
+				}else if(resultStr[0]=='FAILED3'){
+					$(".errorMsg").text('Invalid Mobile No');
+					url="#ProductList";	
+				}else{
+				//if (resultStr[0]=='SUCCESS'){	
 					var prStr=resultStr[1]
 					var Mobile=resultStr[2]
 					var name=resultStr[3]
@@ -1104,57 +1005,43 @@ function PurchaseDone(){
 						 var qQty="qQty_"+i
 	
 						 var pShow=pName+'|'+product_rate+'|'+ category
-						// alert(pShow)
+						
 						 prdctShow=prdctShow+'<tr style="height:70px"><td style="background-color:#CEF">'+pShow+'</td> <td width="50px" style="background-color:#FFEAF4" align="center"><input type="number" id="'+qQty+'"   name="'+qQty+'" style="width:80px; height:30px;font-size:18px;" value="'+product_qty+'">'+'</td></tr>' 
 						
 						pStr=pStr+pID+'<fd>'+pName+'<fd>'+product_qty+'<fd>'+product_point+'<fd>'+product_rate+'<fd>'+category+'<rd>'
-							
 					}//for
 				prdctShow=prdctShow+'</table>'
-				
-				
 				
 				localStorage.pFinal=prdctShow
 				
 				localStorage.pStr=pStr
 				localStorage.prdctShowCart=prdctShow
-				
-				/*$("#item_Que_combo_id").empty()
-				$("#item_Que_combo_id").append(localStorage.prdctShowCart);*/
-				
-				
-				//alert (localStorage.pFinal)
+								
 				$("#purchaseShow").html(localStorage.pFinal);
-				//localStorage.submitPurchase=''
-				
-				//alert (point_valueS)
-				
+								
 				$("#prRedMemP").html(outletShow);
 				$("#prRedMemNameP").html(name+'|'+Mobile);
 				$("#prRedPointP").html(point_valueS);
 				$("#prRedMemPS").html(outletShow);
 				$("#prRedMemNamePS").html(name+'|'+Mobile);
 				$("#prRedPointPS").html(point_valueS);
-				$("#totalPrePointShow").html('Total Point:' + point_valueS);
-				localStorage.totalPrePointShow=point_valueS;
-			}//if      
+				
+				$(".errorMsg").text('');
+				url="#RedeemList";					
+				$.mobile.navigate(url);
+			}//if  
+			
 			}//success
 		  });//ajax
-		//alert (point_valueS) 
-		$(".errorMsg").html('');
-		url="#RedeemList";					
-		$.mobile.navigate(url);	 
-	}else{
-		$(".errorMsg").html('Required Product');
-	}
+		
 }	
 
 function ConfirmPage(){
-	var prStr=localStorage.pStr
+	var prStr=localStorage.pStr;
 	prList=prStr.split('<rd>')
 	var prdctShow='<table style=" width:100%;">'
 	var pStr=''
-	var TotalProductPoint=0
+	var totalPoint=0;
 	
 	for (i=0; i<prList.length-1; i++){
 		 prSingle=prList[i]
@@ -1164,32 +1051,34 @@ function ConfirmPage(){
 		 var product_point=prSingle.split('<fd>')[3]
 		 var product_rate =prSingle.split('<fd>')[4]
 		 var category	  =prSingle.split('<fd>')[5]
-		 var qQty="qQty_"+i
-		 var pShow=pName+'|'+product_rate+'|'+ category
-		
-		 var qty=$("#"+qQty).val()
+		 var qQty="qQty_"+i;
+		 var pShow=pName+'|'+product_rate+'|'+ category;
+		//alert(product_qty+'-'+product_point);
+		 var qty=$("#"+qQty).val();
 		 //alert (qty)
 		 if (parseInt(qty)>0){
 			 //alert (qty)
 			 prdctShow=prdctShow+'<tr style="height:70px;"><td style="background-color:#CEF">'+pShow+'</td> <td width="50px" style="background-color:#FFEAF4" align="center">'+qty+'</td></tr>' 
 			 pStr=pStr+pID+'<fd>'+pName+'<fd>'+qty+'<fd>'+product_point+'<fd>'+product_rate+'<fd>'+category+'<rd>'
-			 TotalProductPoint=TotalProductPoint+(parseInt(product_qty)*parseInt(product_point))
+			 totalPoint=totalPoint+(parseInt(qty)*parseInt(product_rate))
+			 //totalPoint=totalPoint+(parseInt(product_point))
+			// alert(totalPoint);
 		 }
 			
 	}//for
 	prdctShow=prdctShow+'</table>'
 	//alert (TotalProductPoint)
-	localStorage.TotalProductPoint=TotalProductPoint
+	localStorage.TotalProductPoint=totalPoint
 	localStorage.pStrFinal=prdctShow
-	localStorage.pStr=pStr
+	//localStorage.pStr=pStr
 	
-	$("#TotalProductPoint").html('Purchase Point:   '+localStorage.TotalProductPoint);
+	$("#TotalProPoint").html('Purchase Point:   '+totalPoint);
 	
-	totalPointAdd=parseInt(localStorage.totalPrePointShow) + parseInt(localStorage.TotalProductPoint);
+	//totalPointAdd=parseInt(localStorage.totalPrePointShow) + parseInt(localStorage.TotalProductPoint);
 	
-	$("#TotalProductPointShow").html('Total Point:	'+localStorage.totalPrePointShow +' + '+ localStorage.TotalProductPoint);
+	//$("#TotalProductPointShow").html('Total Point:	'+localStorage.totalPrePointShow +' + '+ localStorage.TotalProductPoint);
 	
-	$("#totalAllPoint").html('=	  '+totalPointAdd);
+	//$("#totalAllPoint").html('=	  '+totalPointAdd);
 	
 	
 	$("#purchaseFinalShow").html(localStorage.pStrFinal);
@@ -1203,8 +1092,8 @@ function ConfirmPage(){
 	
 	//$("#selectedItem").empty()
 	
-	localStorage.selectedProductShow="";
-	localStorage.submitPurchase="";
+	//localStorage.selectedProductShow="";
+	//localStorage.submitPurchase="";
 	
 	url="#ConfirmPageSave";					
 	$.mobile.navigate(url);	
@@ -1215,7 +1104,9 @@ function setTextPay(){
 	
 }
 
-function finalPurchaseSave(){	 
+function finalPurchaseSave(){ 
+	 $("#errorChkpurchaseF").html('');
+	 $(".errorChk").html('');
 	 $("#purchaseF_image").show()
 	 $("#saveButton").hide()	
 	 var memberAllInfo=localStorage.radioMem
@@ -1233,7 +1124,8 @@ function finalPurchaseSave(){
 	 
 	 var prPhotoName=$("#prPhotoName").val()
 	 var prPhotoPath=$("#prPhoto").val()
-	 
+	 //var clkbox=$("#clkbox").val();
+	 //alert(prPhotoName+'-'+prPhotoPath)
 	 var errorLog=0
 	 var bkashAmount=0
 	 
@@ -1242,58 +1134,62 @@ function finalPurchaseSave(){
 		 errorLog=1
 		 
 	 }
+	 
 	 if (payComb=='BKash'){
 	 	 
-		 bkashAmount=localStorage.bkashAmount
+		 bkashAmount=localStorage.bkashAmount;
 		 
 	 } 
 ////	  
 	//alert(apiPath+'purchaseComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&finalData='+encodeURIComponent(finalData)+'&memberName='+memberName+'&memmobileNo='+memmobileNo+'&payComb='+payComb+'&BKashNo='+BKashNo+'&prPhotoName='+prPhotoName)
 	if (errorLog==0){
-	$.ajax({
-		type:'POST',
-		url:apiPath+'purchaseComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&finalData='+encodeURIComponent(finalData)+'&memberName='+memberName+'&memmobileNo='+memmobileNo+'&payComb='+payComb+'&BKashNo='+BKashNo+'&prPhotoName='+prPhotoName+'&BT_id='+BT_id+'&bkashAmount='+bkashAmount,
-	
-		success: function(result2) {
-	
-			if (result2=='Success'){
-				 localStorage.selectedProductShow="";
-				 localStorage.submitPurchase="";
-				  
-				 $("#BKashNo").val('')
-				 $("#prPhotoName").val('')
-				 $("#prPhoto").val('')
-				 $("#myImage").html('')
-				 
-				localStorage.radioMem=memberName+'|'+memmobileNo	
-				var radioMem=localStorage.radioMem
-				var radioMemMobile=radioMem.split('|')[1]
-				//alert ('Test')
-				$("#redMobile").val(radioMemMobile);
-				 
-				$("#BKashNo").val('');
-				$("#BT_id").val('');
-				
-				$("#purchaseF_image").hide()
-				$("#saveButton").show();
-				
-				
-				url="#checkedOut";					
-				$.mobile.navigate(url);	
-				//location.reload();		
-				/*$("#button_show").html('<input style="background-color:#00B0B0; height:30px; width:100%; color:#FFF; font-size:14px" type="submit"  value="         Redeem          "   onClick="Redeem()">');*/
-			}
+		if(prPhotoName!=''){	
+			$.ajax({
+				type:'POST',
+				url:apiPath+'purchaseComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&finalData='+encodeURIComponent(finalData)+'&memberName='+memberName+'&memmobileNo='+memmobileNo+'&payComb='+payComb+'&BKashNo='+BKashNo+'&prPhotoName='+prPhotoName+'&BT_id='+BT_id+'&bkashAmount='+bkashAmount,
 			
-			else{
+				success: function(result2) {
+			
+					if (result2=='Success'){
+						 localStorage.selectedProductShow="";
+						 localStorage.submitPurchase="";
+						  
+						 $("#BKashNo").val('')
+						 $("#prPhotoName").val('')
+						 $("#prPhoto").val('')
+						 $("#myImage").html('')
+						 
+						localStorage.radioMem=memberName+'|'+memmobileNo	
+						var radioMem=localStorage.radioMem
+						var radioMemMobile=radioMem.split('|')[1]
+						//alert ('Test')
+						$("#redMobile").val(radioMemMobile);
+						 
+						$("#BKashNo").val('');
+						$("#BT_id").val('');
+						
+						$("#purchaseF_image").hide()
+						$("#saveButton").show();
+						
+						$("#errorChkpurchaseF").html('');
+	 					$(".errorChk").html('');
+						
+						url="#checkedOut";					
+						$.mobile.navigate(url);	
+					}else{
+						$("#purchaseF_image").hide()
+						$("#saveButton").show()	
+						$("#errorChkpurchaseF").html('Failed')
+					}
+				}      
+			
+			  });
+			}else{
 				$("#purchaseF_image").hide()
-				$("#saveButton").show()	
-				$("#errorChkpurchaseF").html('Failed')
+				$("#saveButton").show()
+				$(".errorChk").html('Please Confirm Image')
 			}
-		}      
-	
-	  });
-	}
-	else{
+	}else{
 	
 		$("#purchaseF_image").hide()
 	 	$("#saveButton").show()
@@ -1756,7 +1652,7 @@ function productQueNew(i){
 
 function selectedProductShow(){		
 	//var prdctShow=''
-	var prdctShow='<table style="width:100%;"><tr><td><strong>Product</strong></td><td><strong>Qty</strong></td></tr>'
+	/*var prdctShow='<table style="width:100%;"><tr><td><strong>Product</strong></td><td><strong>Qty</strong></td></tr>'
 	//var submitPurchaseG=localStorage.submitPurchase
 	var submitPurchaseG=localStorage.selectedProductShow;
 	var submitPurchase=submitPurchaseG.replace('undefined<rdrd>','')
@@ -1782,7 +1678,7 @@ function selectedProductShow(){
 		localStorage.selectedProductShow=prdctShow+'</table>'
 		
 		$("#selectedItem").html(localStorage.selectedProductShow);
-	}
+	}*/
 	
 <!--=========================-->	
 	
@@ -2008,8 +1904,8 @@ function member_save(){
 			$(".errorChk").text("Enter valid phone number");
 	  }else if(genderComb=="" || genderComb==0){
 			$(".errorChk").text("Please select Gender");		
-	  }else if(ageRange=="" || ageRange==0){
-			$(".errorChk").text("Please select Age");
+	  /*}else if(ageRange=="" || ageRange==0){
+			$(".errorChk").text("Please select Age");*/
 	  }else{
 
 	  
@@ -2024,17 +1920,17 @@ function member_save(){
 			
 			if (result1!=''){
 				
-			localStorage.memInfo=mobile+'-'+name
-			localStorage.memPoint=0
-			//alert ('11')
-			
-			$("#prMem").html(localStorage.memInfo);
-			$("#prPoint").html(localStorage.memPoint);	
+				localStorage.memInfo=mobile+'-'+name
+				localStorage.memPoint=0
+				//alert ('11')
 				
+				$("#prMem").html(localStorage.memInfo);
+				$("#prPoint").html(localStorage.memPoint);	
+					
+					
+				//$(".errorChk").text("Submitted Successfully");
 				
-			$(".errorChk").text("Submitted Successfully");
-			
-			$("#memButton").show();		
+				$("#memButton").show();		
 			}
           
 		}      
