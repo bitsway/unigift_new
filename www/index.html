@@ -183,6 +183,7 @@
 			localStorage.submitPurchase="";
 			
 			$("#login_image").hide();
+			$("#mSearch_image").hide();
 			
 			$("#outletShow").html(localStorage.outletShow)
 			$("#giftShow").html(localStorage.giftShow)
@@ -391,7 +392,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div> 
     
     <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; font-size:11px;"  > 
-       Version 20180205
+       Version 20180207
      </div>
  </div>  
 <!---------------------------------------Page Outlet------------------------------------->
@@ -452,10 +453,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 </div> <!--<div>--1-->
 <!-----------------------Shopping Trip--------------------->
 
-<div data-theme="c" data-role="page" id="member" style="background-color:#EBFCFA"  >
+<!--<div data-theme="c" data-role="page" id="member" style="background-color:#EBFCFA"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; ">    
     <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()" ><img src="menu.png"></a>
-    <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
     <h3>Select Member</h3>
     </div> 
@@ -478,16 +478,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </form>
         </div>
 
-</div> <!--<div>--1-->
+</div> -->
 <!---------------------------------member reg------------->
 
 <div data-theme="c" data-role="page" id="registration" style="background-color:#EBFCFA; overflow:scroll"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
     <a data-role="button"  class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"  ><img src="unilogo13.png"></a>
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
-    <!--<a id="backjpj" style="height:18px" data-rel="back" data-iconpos="left" class="ui-btn-right"><img src="back1.png"></a>-->
     <h3>Add Member</h3>
-    </div> <!--<div>--2-->
+    </div> 
     <br>
      &nbsp;&nbsp;&nbsp;&nbsp;<font id="purchOutlet" style="font-size:14px; color:#060"></font>
      
@@ -595,22 +594,12 @@ style="background-color:#5EBBE8; color:#fff"-->
                 <td><a href="#" onClick="proCatSelect('PW')" data-transition="slide"><div id="img_div"><img src="cat_img/PW1.jpg" style="padding-top:5px;"><p style="padding:0px; margin:0px;">PW</p></div><!--<div id="img_name"><p>Pw</p></div>--></a></td>
               </tr>
             </table>
+           
+        <br>
+        <br>
         
-		<!--<div style="border-bottom:2px solid #CCC; border-top:1px solid #CCC; background-color:#EDFEED;">
-        	<font id="selectedItem"></font>
-         </div>-->     
-        <br>
-     <!--id="prdctShow"-->
-        <!--<div  style="overflow:scroll; height:600px;" >
-        	<ul class="list" id="item_combo_id" style="background-color:#EDFEED; padding:0px; margin:0px;"> </ul>
-        <br><br>
-        </div>-->
-        <br>
-        <!--<a id="rewardButton" data-role="button"  onClick="productQue()" ><strong>Next</strong></a>--> 
-        <!--<a id="rewardButton" data-role="button"  onClick="purchaseDataSave()" ><strong>Add to Cart</strong></a>-->
         <a id="rewardButton" data-role="button"  onClick="PurchaseDone()" >Purchase & CheckOut</strong></a>
         <div class="errorMsg"></div><br>
-        <!--<a href="" onClick="PurchaseDone()"><div id="img_div"><img src="cat_img/checkOut2.jpg" style="padding-top:10px; width:150px; height:80px;"><p style="padding:0px; margin:0px;">Purchase & CheckOut</p></div></a>-->
         <br><br><br>
         <a  href="#routePanel" data-role="button" onClick="memHistory()" style="width:100px; text-align:center;">History<br></a>
     </div> 
@@ -618,17 +607,14 @@ style="background-color:#5EBBE8; color:#fff"-->
  </div> 
  
  
-<!--<div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
-<div data-theme="c" data-role="header" data-position="fixed" > -->
-
 <div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-left" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
-    <a data-role="button" onclick="selectedProductShow();" class="ui-btn-right" data-transition="slide" style="height:18px; "><div style="width:75px; float:left">Add to Cart</div> <div style="width:90px;"><img src="back2.png" /></div></a>
+    <a data-role="button" onclick="selectedProductShow();" class="ui-btn-right" data-transition="slide" style="height:18px; "><div style="width:75px; float:left;margin-top:2px;">Add to Cart</div> <div style="width:90px;"><img src="back2.png" /></div></a>
     
     <h3>Product List</h3>
 </div>
-		<div data-role="content" style="height:600px; overflow:scroll;">
+		<div data-role="content" style="height:475px; overflow:scroll;">
              <font id="prodctPage" style="font-size:13px; color:#060"></font>
              
              <!--<table width="100%" border="0">
@@ -646,9 +632,9 @@ style="background-color:#5EBBE8; color:#fff"-->
         <!--<br><br>
         <a id="rewardButton" data-role="button"  onClick="selectedProductShow()" ><strong>Next</strong></a> -->
     </div> 
-      	<br><br><br>
-        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; margin-bottom:0;"  > 
-       <a data-role="button" class="ui-btn" data-transition="slide"  onClick="selectedProductShow()" ><strong>Add to Cart</strong></a> 
+      	
+        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; "> 
+       <a data-role="button" data-transition="slide" style="height:18px;"  onClick="selectedProductShow()" ><div style="width:75px; float:left; margin-top:2px;">Add to Cart</div><div style="width:90px;"><img src="back2.png" /></div></a> 
      </div>  
  </div>
  
@@ -829,51 +815,61 @@ style="background-color:#5EBBE8; color:#fff"-->
 
 <!----------------------------------------------Shopping Que/ Redeem------------------->
 
-   <div data-theme="c" data-role="page" id="ProductQueRedList" style="background-color:#EBFCFA; overflow:scroll;"  >
+   <div data-theme="c" data-role="page" id="ProductQueRedList" style="background-color:#EBFCFA; overflow:scroll;">
       <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
-     <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
+     <a data-role="button" style="height:18px;" class="ui-btn-left" onClick="pageOutlet()"><img src="unilogo13.png"></a>
      <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
       <h3>Purchase / Redeem</h3>
- 
   </div>
-      <br> 
-  <div data-role="content">
-  				
-      <span style="color:#666; font-weight:bold">Please select from Que</span>
-           <br><br>
-            <div id="queMem" ></div>
-    		<br>
-             <table width="100%" border="0">
-                  <tr>
-                        <td > <input type="number" name="redMobile" id="redMobile" list="mobile" placeholder="Member Mobile No" onKeyUp="checkRadio()" style="height:40px; font-size:24px;"></td>
-                        <td></td>
-                        <td width="50px"><a data-role="button" style=" height:25px; font-size:20px"   onClick="clearText()" >X</a> </td>
-                  </tr>
-            </table>
-    		<br>
-            
-            <!--<a href="" onClick="Redeem()"><div id="img_div"><img src="cat_img/gift-icon.png" style="padding-top:10px;"><p style="padding:0px; margin:0px;">Redeem & Gift</p></div></a>
-            <br>-->
-            <a data-role="button" id="addProduct" onClick="memberSelect()" >Next</a>
-            <!--<table width="100%" border="0">
-                <tr >
-                    <td > <a data-role="button"  id="PnCButton"   onClick="PurchaseDone()" >Purchase & CheckOut</a></td>
-                    
-                    <td >  <a data-role="button"   onClick="Redeem()" >Redeem</a>   </td>
-                </tr>
-                <tr >
-                    <td ></td>
-                </tr>   
-            </table>-->
-         <!--</font>
-        </div>  -->
-        <div class="errorMsg"></div>  
-        <br><br>  
-      <!--<div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> -->
-	</div>
-     </div>
+  
+  <div data-role="content" style=" height:475px; overflow:scroll;">
+    <table width="100%" border="0">
+        <tr>
+            <td > <label for="" style="color:#666; font-weight:bold;" >Enter Mobile Number:</label><input type="number" name="redMobile" id="redMobile" list="mobile" placeholder="Mobile No" onKeyUp="checkRadio()" style="height:40px; font-size:32px;"></td>
+            <td></td>
+            <td width="50px"><a data-role="button" style="height:18px; width:12px; font-size:18px; margin-top:30px;"   onClick="clearText()" >X</a> </td>
+        </tr>
+    </table>
+    <div id="mSearch_image" style="text-align:center;"><img height="40px" width="40px" src="loading.gif"></div>
+    <div class="errorMsg"></div>  
+    <br>
+    <span style="color:#666; font-weight:bold;">Select From Que</span>
+    <br>
+    <div id="queMem" style="margin-top:10px;"></div>
+    
+    </div>
+     
+    <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff;text-align:center;">
+      <a data-role="button" data-transition="slide" style="height:18px;" onClick="memberSelect()" >Next</a>
+      </div>
  </div>
-
+ 
+ 
+ <!--<div data-theme="c" data-role="page" id="ProductListDetails" style="background-color:#EBFCFA; overflow:scroll;">
+    <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;">
+    <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-left" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
+    <a data-role="button" onclick="selectedProductShow();" class="ui-btn-right" data-transition="slide" style="height:18px; "><div style="width:75px; float:left;margin-top:2px;">Add to Cart</div> <div style="width:90px;"><img src="back2.png" /></div></a>
+    
+    <h3>Product List</h3>
+</div>
+		<div data-role="content" style="height:600px; overflow:scroll;">
+             <font id="prodctPage" style="font-size:13px; color:#060"></font>
+             
+			<br>
+            
+        <div>
+        	<ul class="list" id="item_combo_id" style="background-color:#EDFEED; padding:0px; margin:0px;"> </ul>
+        </div>
+    </div> 
+      	<br><br><br>
+        <div data-theme="c" data-role="footer" data-position="fixed" style="background-color:#5EBBE8; color:#fff; text-align:center; "> 
+       <a data-role="button" data-transition="slide" style="height:18px;"  onClick="selectedProductShow()" ><div style="width:75px; float:left; margin-top:2px;">Add to Cart</div><div style="width:90px;"><img src="back2.png" /></div></a> 
+     </div>  
+ </div>
+ -->
+ 
+ 
+ 
 
 
 <!----------------------------------------------Redeem------------------->
@@ -1151,7 +1147,7 @@ style="background-color:#5EBBE8; color:#fff"-->
  
  <div data-theme="c" data-role="page" id="checkedOut" style="background-color:#FFF"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
-    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
     <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
     
         <h3>Checked Out</h3>
@@ -1177,7 +1173,7 @@ style="background-color:#5EBBE8; color:#fff"-->
  
 <div data-theme="c" data-role="page" id="giftGiven" style="background-color:#FFF"  >
     <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff"> 
-    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
+    <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
     <!--<a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>-->
     
         <h3>Gift Given</h3>
@@ -1194,7 +1190,7 @@ style="background-color:#5EBBE8; color:#fff"-->
     </table>
     <br>
    <!-- <a data-role="button" href="" onClick="menuSearch()">Home</a>-->  
-    <a data-role="button" href="" onClick="homePageReload()">Home</a> 
+    <a data-role="button" href="" onClick="homePage()">Home</a> 
   </div>
 </div> 
  
@@ -1202,7 +1198,7 @@ style="background-color:#5EBBE8; color:#fff"-->
 <!------------------------------------------------redeem-------------------->
 <div data-theme="c" data-role="page" id="redeemShow" style="background-color:#EBFCFA"  >
         <div data-theme="c" data-role="header" data-position="fixed" style="background-color:#5EBBE8; color:#fff;"> 
-        <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePageReload()"><img src="unilogo13.png"></a>
+        <a data-role="button" style="height:18px;" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left" onClick="homePage()"><img src="unilogo13.png"></a>
        <a data-role="button" onclick="backClick();" data-rel="back" class="ui-btn-right" data-transition="slide" style="height:18px;"><img src="back1.png" /></a>
              <h3>Gift</h3>
   

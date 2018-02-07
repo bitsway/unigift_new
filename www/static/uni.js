@@ -2,8 +2,9 @@
 //var apiPath='http://127.0.0.1:8000/unigift/syncmobile_eon_bKashNew_amount/';
 
 //var apiPath='http://127.0.0.1:8000/unigift/syncmobile/';
+//var apipath_image = 'http://127.0.0.1:8000/moderntrade/';
 
-var apiPath='http://w02.yeapps.com/unigift/syncmobile_2018/'
+var apiPath='http://w02.yeapps.com/unigift/syncmobile_20180207/'
 var apipath_image='http://i001.yeapps.com/image_hub/unigift/upload_image/'
 
 
@@ -53,9 +54,6 @@ function backClick(){
 	$("#login_error").text("");
 }
 
-function homePageReload(){
-	location.reload();
-}
 function login() {
 	url="#login";					
 	$.mobile.navigate(url);
@@ -64,8 +62,60 @@ function login() {
 function homePage() {
 	$(".errorChk").text("");
 	$(".errorMsg").text("");
-	url="#menuPage";					
-	$.mobile.navigate(url);
+	//url="#menuPage";
+	//url="#ProductQueRedList";					
+	//$.mobile.navigate(url);
+	
+	
+	$.ajax({
+			type:'POST',
+		    url:apiPath+'ready_que?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outlet='+localStorage.outlet,
+			success: function(result){
+				resultStr=result.split('<SYNCDATA>');	
+			    if (resultStr[0]=='FAILED'){
+					$("#mobile").val(mMobile);
+					url="#registration";					
+					$.mobile.navigate(url);	
+				}
+				if (resultStr[0]=='SUCCESS'){
+				    var memStr=resultStr[1]
+					var memStrFinal=resultStr[2]
+					
+					memStrList=memStr.split('<rd>')
+					outletShow=''
+					for (i=0; i<memStrList.length-1; i++){	
+						memMob=memStrList[i].split('<fd>')[0]
+						memName=memStrList[i].split('<fd>')[1]
+						
+						
+						outletShow=outletShow+'<label class="ui-btn ui-shadow ui-corner-all" style="border-color:#CBE4E4;" onClick="checkRadioVal('+i+')"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memName+'|'+memMob+'" >'+memName+'|'+memMob+'</label>'
+					}
+					
+					memStrListFinal=memStrFinal.split('<rd>')
+					for (j=0; j<memStrListFinal.length-1; j++){	
+						
+						i=i+1
+						memMobFinal=memStrListFinal[j].split('<fd>')[0]
+						memNameFinal=memStrListFinal[j].split('<fd>')[1]
+						
+						outletShow=outletShow+'<label class="ui-btn ui-shadow ui-corner-all" style="background-color:#FFFFC6;  border-color:#CBE4E4;" onClick="checkRadioVal('+i+');"><input id="radioMem_'+i+'" type="radio" name="radio_mem"  value="'+memNameFinal+'|'+memMobFinal+'" >'+memNameFinal+'|'+memMobFinal+'</label>'
+
+					}
+					localStorage.queMem=outletShow;
+					$("#queMem").html(localStorage.queMem);
+					
+				}
+			},
+			 error: function(result) {
+					
+			 }
+		});
+	$("#redMobile").val('');
+	$("#redMobile" ).prop( "disabled", false );
+	$("#queMem" ).prop( "disabled", false );
+	
+	url="#ProductQueRedList";					
+	$.mobile.navigate(url);	
 	
 }
 
@@ -79,23 +129,23 @@ function Redeem(){
 	var mStr=mInfo.split('-')
 	var mobileNo=mStr[0];
 	
-	var redMobile=$("#redMobile").val();
+	//var redMobile=$("#redMobile").val();
 	
-	if (redMobile !=""){
-		redMobile=redMobile
+	/*if (redMobile !=""){
+		phoneNo=redMobile
 	}else{
-		redMobile=mobileNo
-	}
-	
-	if (redMobile.length==13){
-		//alert (apiPath+'search_mobRedeem?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&redMobile='+redMobile)
+		phoneNo=mobileNo
+	}*/
+	//alert(mobileNo);
+	if (mobileNo.length==13){
+		//alert (apiPath+'search_mobRedeem?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&redMobile='+mobileNo)
 		$.ajax({
 			type:'POST',
-			url:apiPath+'search_mobRedeem?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&redMobile='+redMobile,
+			url:apiPath+'search_mobRedeem?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&redMobile='+mobileNo,
 			success: function(result){
 				resultStr=result.split('<SYNCDATA>');	
 				if (resultStr[0]=='FAILED'){
-					$("#mobile").val(redMobile);
+					$("#mobile").val(mobileNo);
 					url="#registration";					
 					$.mobile.navigate(url);	
 				}
@@ -107,13 +157,14 @@ function Redeem(){
 					var mem_name=resultStr[2];
 					var mem_point=resultStr[3];
 					var prStr=resultStr[1]
-					localStorage.memInfo=Mobile+'-'+mem_name
+					localStorage.mobileName=mem_name+'|'+Mobile
+					//alert(localStorage.mobileName);
 					localStorage.memPoint=mem_point
-					var memInfoRed=localStorage.memInfo
+					/*var memInfoRed=localStorage.mobileName;
 					var memRedMob=memInfoRed.split('-')[0];
 					localStorage.memRedMob=memRedMob
 					var memRedName=memInfoRed.split('-')[1];
-					localStorage.memRedName=memRedName					
+					localStorage.memRedName=memRedName*/					
 					
 					giftdctStr=localStorage.giftdctStr
 					giftdctStrList=giftdctStr.split('<rdrd>')
@@ -136,9 +187,9 @@ function Redeem(){
 					$("#giftRedShow").html(localStorage.giftShowRed)
 
 					
-					$("#redMobile").val(Mobile);
+					//$("#redMobile").val(Mobile);
 					$("#prRedMem").html(localStorage.outlet);
-					$("#prRedMemName").html(mem_name+'|'+Mobile);
+					$("#prRedMemName").html(localStorage.mobileName);
 					$("#prRedPoint").html(mem_point);
 					
 					$("#gSError").html('');
@@ -169,8 +220,13 @@ function giftSave(){
 			$("#Gift_image").show();
 			$("#saveButtonGift").hide();
 			
-			var memMb=localStorage.memRedMob;
-			var memNM=localStorage.memRedName
+			//var memMb=localStorage.memRedMob;
+			//var memNM=localStorage.memRedName
+			var memInfo=localStorage.memInfo;
+			 var memNameMob=memInfo.split('-');
+			 var mMobile=memNameMob[0];
+			 var mName=memNameMob[1];
+	 
 			var memPoint=localStorage.memPoint;
 			var checkId=$("input[name='checkId']:checked").val();
 			var outletShow=localStorage.outlet
@@ -210,7 +266,7 @@ function giftSave(){
 				//alert (apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb)
 				 $.ajax({
 					type:'POST',
-					url:apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+memNM+'&memMb='+memMb,
+					url:apiPath+'redeemComplete?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitRedeem='+encodeURIComponent(submitRedeem)+'&memPoint='+localStorage.memPoint+'&memNM='+mName+'&memMb='+mMobile,
 				
 					success: function(result) {
 						if (result!='Failed'){	
@@ -245,7 +301,8 @@ function giftSave(){
 	
 function menuSearch(){
 	$('#otltName').html(localStorage.outlet);
-	url="#menuPage";					
+	//url="#menuPage";
+	url="#ProductQueRedList";					
 	$.mobile.navigate(url);	
 	location.reload();
 	}	
@@ -257,19 +314,40 @@ function shppingTrip(){
 	}	
 	
 function memberSelect(){
+	$(".errorMsg").html("");
+	localStorage.memInfo="";
 	$('#purchOutlet').html(localStorage.outlet);
 	
-	var mPhoneNo=$("#redMobile").val();
+	/*var mPhoneNo=$("#redMobile").val();
 	
-	var phone=$("#mMobile").val();
+	var firstFlag=false;
+	var secondFlag=false;
+	var thirdFlag=false;
+	if (mPhoneNo.length==11){
 		
-	if (phone !=""){
-		if (phone.length < 13 ){
-			mMobile='88'+phone
-		}else{
-			mMobile=phone
+		if(parseInt(mPhoneNo[0])==0){
+			firstFlag=true;				
+		}
+		if(parseInt(mPhoneNo[1])==1){
+			secondFlag=true;				
+		}
+		if(parseInt(mPhoneNo[2])==1 || parseInt(mPhoneNo[2])==5 || parseInt(mPhoneNo[2])==6 || parseInt(mPhoneNo[2])==7 || parseInt(mPhoneNo[2])==8 || parseInt(mPhoneNo[2])==9){
+			thirdFlag=true;				
 		}
 	}
+	
+	if(parseInt(mPhoneNo.length)!=11){
+		$(".errorChk").text("Required Mobile no 11 digit");
+	}else if (mPhoneNo=="" ){
+		$(".errorChk").text("Please Select Que / Enter Mobile No");			
+	}else if (firstFlag==false){
+		$(".errorChk").text(" Invalid Mobile Number");			
+	}else if (secondFlag==false){
+		$(".errorChk").text("Invalid Mobile Number");			
+	}else if (thirdFlag==false){
+		$(".errorChk").text("Invalid Mobile Number");
+	}else{*/
+	var mPhoneNo=$("#redMobile").val();
 	if(mPhoneNo !=""){
 		if (mPhoneNo.length < 13 ){
 			mMobile='88'+mPhoneNo
@@ -279,13 +357,16 @@ function memberSelect(){
 	}
 	
 	if (mMobile.length==13 ){	
+		$("#mSearch_image").show();
 		//alert (apiPath+'search_mob?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&mMobile='+mMobile)
 		$.ajax({
 			type:'POST',
 			url:apiPath+'search_mob?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&mMobile='+mMobile,
 			success: function(result){
 				resultStr=result.split('<SYNCDATA>');	
+				
 				if (resultStr[0]=='FAILED'){
+					$("#mSearch_image").hide();
 					$("#mobile").val(mMobile);
 					url="#registration";					
 					$.mobile.navigate(url);	
@@ -298,10 +379,12 @@ function memberSelect(){
 	
 					localStorage.memInfo=Mobile+'-'+mem_name
 					localStorage.memPoint=mem_point;
-					$("#mMobile").val(Mobile);
+					
+					//$("#mMobile").val(Mobile);
 					$("#prMem").html(localStorage.memInfo);
 					$("#prPoint").html(localStorage.memPoint);
-										
+					$("#mSearch_image").hide();
+									
 					$(".errorMsg").html("");
 					url="#ProductList";					
 					$.mobile.navigate(url);					
@@ -635,13 +718,13 @@ function productStockQueNew(i){
 
 <!------------------- Product Stock -18/12/17 -------------------------->
 
-function productQue(){
+/*function productQue(){
 	url="#ProductList";					
 	$.mobile.navigate(url);	
 		
 	//alert (localStorage.submitPurchase)
 	//var prdctShow=''
-	/*var prdctShow='<table style=" width:100%;">'
+	var prdctShow='<table style=" width:100%;">'
 	
 	var submitPurchaseG=localStorage.submitPurchase
 	var submitPurchase=submitPurchaseG.replace('undefined<rdrd>','')
@@ -679,8 +762,8 @@ function productQue(){
 		$("#errorChkpurchase").html('')
 		url="#ProductQueList";					
 		$.mobile.navigate(url);	
-	}*/
-}
+	}
+}*/
 
 <!-------------- Product Stock -18/12/17 ------------->
 
@@ -756,7 +839,7 @@ function memHistory(){
 }
 
 	
-function productQueRedeem(){
+/*function productQueRedeem(){
 	//alert (apiPath+'ready_que?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outlet='+localStorage.outlet)
 	$.ajax({
 			type:'POST',
@@ -809,7 +892,7 @@ function productQueRedeem(){
 	$.mobile.navigate(url);	
 	
 	
-}
+}*/
 
 function checkRadioVal(i){
 	localStorage.radioMem="";
@@ -818,24 +901,23 @@ function checkRadioVal(i){
 	var radioMemGet="#radioMem_"+i;
 	$(radioMemGet).attr('checked', true) 
 	var radioMem=$(radioMemGet).val();
-	localStorage.radioMem=radioMem	
-	var radioMemMobile=radioMem.split('|')[1]
+	//localStorage.radioMem=radioMem	
+	var radioMemMobile=radioMem.split('|')[1];
+	
 	$("#redMobile").val(radioMemMobile);
 	$("#redMobile").attr("disabled", "disabled"); 
 	
 }
-function clearText(){
-	$( "#redMobile" ).prop( "disabled", false );
-	$("#queMem").html(localStorage.queMem);
-	$("#redMobile").val('');
+function clearText(){	
+	$("#redMobile").val(" ");
+	$("#redMobile" ).prop( "disabled", false );
+	$("#queMem").html(localStorage.queMem);	
 }
 function checkRadio(){
-	var cText=$("#redMobile").val()
+	var cText=$("#redMobile").val();
 	
 	if (cText.length > 0){
-		
 		$('#queMem').find('input, textarea, button, select').attr('disabled','disabled');
-
 	}else{
 		$("#queMem").html(localStorage.queMem);
 	}
@@ -922,7 +1004,8 @@ function stockDataSave(){
 				$(".errorChkStock").html("Submitted Successfully");
 				$("#stockBtn").hide();
 				<!------------------------->
-				url="#menuPage";					
+				//url="#menuPage";
+				url="#ProductQueRedList";					
 				$.mobile.navigate(url);	
 				
 				$("#sTripBtn").show();
@@ -943,26 +1026,19 @@ function stockDataSave(){
 
 <!----------------Product Stock -18/12/17 ---------------->		
 function PurchaseDone(){
-	//localStorage.pStr="";	
+	localStorage.pStr="";	
+	localStorage.pFinal="";
 	var outletShow=localStorage.outlet
 	var outletIDN=outletShow.split('|');
 	var IdOutlet=outletIDN[0];
 	
-	var memPhone=$("#redMobile").val();	
-	var mMobile=$("#mMobile").val();
+	var mMobile=$("#redMobile").val();	
 		
 	if (mMobile !=""){
 		if (mMobile.length < 13 ){
 			memMob='88'+mMobile
 		}else{
 			memMob=mMobile
-		}
-	}
-	if (memPhone !=""){
-		if (memPhone.length < 13 ){
-			memMob='88'+memPhone
-		}else{
-			memMob=memPhone
 		}
 	}
 	
@@ -978,7 +1054,7 @@ function PurchaseDone(){
 					$(".errorMsg").text('Invalid User');
 					url="#ProductList";
 				}else if(resultStr[0]=='FAILED2'){
-					$(".errorMsg").text('Required Product');
+					$(".errorMsg").text('Product Required');
 					url="#ProductList";
 				}else if(resultStr[0]=='FAILED3'){
 					$(".errorMsg").text('Invalid Mobile No');
@@ -1070,15 +1146,10 @@ function ConfirmPage(){
 	//alert (TotalProductPoint)
 	localStorage.TotalProductPoint=totalPoint
 	localStorage.pStrFinal=prdctShow
-	//localStorage.pStr=pStr
+	localStorage.pStr=pStr
+	//localStorage.pSFinal=pStr
 	
 	$("#TotalProPoint").html('Purchase Point:   '+totalPoint);
-	
-	//totalPointAdd=parseInt(localStorage.totalPrePointShow) + parseInt(localStorage.TotalProductPoint);
-	
-	//$("#TotalProductPointShow").html('Total Point:	'+localStorage.totalPrePointShow +' + '+ localStorage.TotalProductPoint);
-	
-	//$("#totalAllPoint").html('=	  '+totalPointAdd);
 	
 	
 	$("#purchaseFinalShow").html(localStorage.pStrFinal);
@@ -1109,15 +1180,23 @@ function finalPurchaseSave(){
 	 $(".errorChk").html('');
 	 $("#purchaseF_image").show()
 	 $("#saveButton").hide()	
-	 var memberAllInfo=localStorage.radioMem
+	/* var memberAllInfo=localStorage.radioMem
      var memberName=memberAllInfo.split('|')[0]
-	 var memmobileNo=memberAllInfo.split('|')[1]
+	 var memmobileNo=memberAllInfo.split('|')[1]*/
+	 var memberAllInfo=localStorage.memInfo;
+	 var memmobileNo=memberAllInfo.split('-')[0]
+	 var memberName=memberAllInfo.split('-')[1]
+	 
+	 //alert(memmobileNo+'-'+memberName);
+	 
     // alert (memberName)
 	 var outletShow=localStorage.outlet
 	 var outletNameId=outletShow.split('|');
 	 var outletId=outletNameId[0];
      var outletName=outletNameId[1];
+	 //alert(localStorage.pStr);
 	 var finalData=localStorage.pStr
+	 //var finalData=localStorage.pSFinal;
 	 var payComb=$("#payComb").val()
 	 var BKashNo=$("#BKashNo").val()
 	 var BT_id=$("#BT_id").val()
@@ -1159,11 +1238,11 @@ function finalPurchaseSave(){
 						 $("#prPhoto").val('')
 						 $("#myImage").html('')
 						 
-						localStorage.radioMem=memberName+'|'+memmobileNo	
+						/*localStorage.radioMem=memberName+'|'+memmobileNo	
 						var radioMem=localStorage.radioMem
 						var radioMemMobile=radioMem.split('|')[1]
 						//alert ('Test')
-						$("#redMobile").val(radioMemMobile);
+						$("#redMobile").val(radioMemMobile);*/
 						 
 						$("#BKashNo").val('');
 						$("#BT_id").val('');
@@ -1301,7 +1380,8 @@ function login_user() {
 								localStorage.prdctStockCart=''
 								
 								<!------------ Product Stock -18/12/17------->
-																
+								localStorage.pSFinal=''		
+								localStorage.mobileName=''				
 								<!------------ Add to Cart ------->
 								
 								localStorage.submitAddCart=''
@@ -1507,8 +1587,6 @@ function login_user() {
 function setOutlet(outlet){
 	localStorage.outlet=outlet
 	
-	
-	localStorage.memInfo=''
 	localStorage.memPoint=''
 	localStorage.memRedMob=''
 	localStorage.memRedName=''
@@ -1523,6 +1601,8 @@ function setOutlet(outlet){
 	localStorage.submitStock=''
 	localStorage.prdctStockCart=''
 	<!---------- Product Stock -18/12/17 ----------->
+	localStorage.pSFinal=''	
+	localStorage.mobileName=''
 		
 	<!--------- Add to Cart ------------>
 	localStorage.submitAddCart=''
@@ -1689,7 +1769,7 @@ function selectedProductShow(){
 	 var memNameMob=memInfo.split('-');
 	 var memMobile=memNameMob[0];
 	 var memName=memNameMob[1];
-	 
+	 //alert(memMobile);
 	 var memPoint=localStorage.memPoint;
 	 var outletShow=localStorage.outlet
 	 var outletNameId=outletShow.split('|');
@@ -1698,22 +1778,22 @@ function selectedProductShow(){
 	 var submitStrPurchase=localStorage.submitPurchase;
 	 //var submitStrPurchase=localStorage.singleCatagoriSubmit;
 	 submitStrPurchase=submitStrPurchase.replace('undefined<rdrd>','') 
-
+	//alert(apiPath+'purchase_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrPurchase='+encodeURIComponent(submitStrPurchase)+'&memPoint='+localStorage.memPoint+'&memName='+memName+'&memMobile='+memMobile);
 	$.ajax({
 		type:'POST',
 		url:apiPath+'purchase_submit?cid='+localStorage.cid+'&cm_id='+localStorage.cm_id+'&cm_pass='+localStorage.cm_pass+'&sync_code='+localStorage.sync_code+'&outletId='+outletId+'&outletName='+outletName+'&submitStrPurchase='+encodeURIComponent(submitStrPurchase)+'&memPoint='+localStorage.memPoint+'&memName='+memName+'&memMobile='+memMobile,
 	
         success: function(result2) {
 			if (result2!='Failed'){
-				localStorage.radioMem=memName+'|'+memMobile	
+				/*localStorage.radioMem=memName+'|'+memMobile	
 				var radioMem=localStorage.radioMem
-				var radioMemMobile=radioMem.split('|')[1]
+				var radioMemMobile=radioMem.split('|')[1]*/
 				
-				$("#redMobile").val(radioMemMobile);
+				//$("#redMobile").val(radioMemMobile);
 				
 				<!--$("#button_show").html(' <a data-role="button"    onClick="PurchaseDone()" >Purchase & CheckOut</a>');-->
 				
-				//localStorage.submitPurchase='';
+				localStorage.submitPurchase='';
 				//localStorage.singleCatagoriSubmit='';
 				//localStorage.prdctShowCart='';
 				
@@ -1919,18 +1999,19 @@ function member_save(){
         success: function(result1) {
 			
 			if (result1!=''){
-				
 				localStorage.memInfo=mobile+'-'+name
 				localStorage.memPoint=0
-				//alert ('11')
 				
 				$("#prMem").html(localStorage.memInfo);
 				$("#prPoint").html(localStorage.memPoint);	
 					
-					
-				//$(".errorChk").text("Submitted Successfully");
+				$("#name").val("");
+				$("#ageRange").val(0);
+				$("#genderComb").val(0);				
+				$("#address").val("");
 				
-				$("#memButton").show();		
+				$("#memButton").show();
+				$(".errorChk").text("");			
 			}
           
 		}      
